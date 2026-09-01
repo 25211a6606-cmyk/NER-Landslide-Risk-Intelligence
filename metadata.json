@@ -1,0 +1,6 @@
+{
+  "name": "GeoAlert",
+  "description": "AI-powered, GIS-based location-level landslide risk monitoring, susceptibility prediction, and early warning SMS platform.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
