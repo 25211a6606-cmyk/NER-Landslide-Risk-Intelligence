@@ -13,7 +13,9 @@ import {
   DatabaseZap,
   Sliders,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Truck,
+  Ambulance
 } from 'lucide-react';
 
 export type ActiveTab =
@@ -23,6 +25,8 @@ export type ActiveTab =
   | 'explorer'
   | 'rainfall'
   | 'infrastructure'
+  | 'road-connectivity'
+  | 'emergency-response'
   | 'alerts'
   | 'subscribe'
   | 'history'
@@ -87,6 +91,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
       id: 'infrastructure',
       label: 'Infrastructure Exposure',
       icon: <ShieldAlert className="w-4 h-4 shrink-0" />
+    },
+    {
+      id: 'road-connectivity',
+      label: 'Highway Lifelines & Connectivity',
+      icon: <Truck className="w-4 h-4 shrink-0" />,
+      badge: 'BRO Live',
+      badgeColor: 'bg-emerald-600 text-white'
+    },
+    {
+      id: 'emergency-response',
+      label: 'Emergency Response Prioritisation',
+      icon: <Ambulance className="w-4 h-4 shrink-0" />,
+      badge: 'NDRF Triage',
+      badgeColor: 'bg-rose-600 text-white'
     },
     {
       id: 'alerts',

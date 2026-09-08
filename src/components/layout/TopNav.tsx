@@ -13,10 +13,15 @@ import {
   AlertOctagon,
   Sun,
   Moon,
-  X
+  X,
+  Camera,
+  Globe2,
+  Wifi,
+  WifiOff
 } from 'lucide-react';
 import { MonitoredLocation } from '../../types/location';
 import { SystemNotification } from '../../types/alert';
+import { SupportedLanguage } from '../../services/multilingualService';
 
 interface TopNavProps {
   locations: MonitoredLocation[];
@@ -31,6 +36,10 @@ interface TopNavProps {
   onTriggerDemoSurge: () => void;
   isLightMode?: boolean;
   onToggleLightMode?: () => void;
+  onOpenFieldReport?: () => void;
+  isOnline?: boolean;
+  currentLanguage?: SupportedLanguage;
+  onLanguageChange?: (lang: SupportedLanguage) => void;
 }
 
 export const TopNav: React.FC<TopNavProps> = ({
@@ -45,7 +54,11 @@ export const TopNav: React.FC<TopNavProps> = ({
   isRefreshing,
   onTriggerDemoSurge,
   isLightMode = true,
-  onToggleLightMode
+  onToggleLightMode,
+  onOpenFieldReport,
+  isOnline = true,
+  currentLanguage = 'en',
+  onLanguageChange
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -219,6 +232,52 @@ export const TopNav: React.FC<TopNavProps> = ({
 
       {/* Right Controls & Action Buttons */}
       <div className="flex items-center gap-2">
+        {/* Multilingual Selector */}
+        {onLanguageChange && (
+          <div className="hidden md:flex items-center gap-1">
+            <Globe2 className="w-3.5 h-3.5 text-slate-400" />
+            <select
+              value={currentLanguage}
+              onChange={(e) => onLanguageChange(e.target.value as SupportedLanguage)}
+              title="Change Alert & Notification Language"
+              className={`text-[11px] font-bold rounded-lg px-2 py-1.5 border focus:outline-none transition-all ${
+                isLightMode
+                  ? 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
+                  : 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700'
+              }`}
+            >
+              <option value="en">EN</option>
+              <option value="as">অসমীয়া</option>
+              <option value="hi">हिन्दी</option>
+              <option value="mni">মৈতৈ</option>
+              <option value="lus">Mizo</option>
+              <option value="bn">বাংলা</option>
+            </select>
+          </div>
+        )}
+
+        {/* Field Incident Reporting Trigger Button */}
+        {onOpenFieldReport && (
+          <button
+            onClick={onOpenFieldReport}
+            title="Submit Ground Hazard Observation / Incident Report (Offline-Capable)"
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold border transition-all active:scale-95 shadow-xs ${
+              isLightMode
+                ? 'bg-emerald-50 hover:bg-emerald-100 border-emerald-300 text-emerald-800'
+                : 'bg-emerald-950/40 hover:bg-emerald-950/70 border-emerald-500/40 text-emerald-300'
+            }`}
+          >
+            <Camera className="w-3.5 h-3.5 text-emerald-500" />
+            <span className="hidden sm:inline font-mono text-[11px]">Field Report</span>
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${
+                isOnline ? 'bg-emerald-400' : 'bg-amber-400'
+              }`}
+              title={isOnline ? 'Online Sync Active' : 'Offline Queue Active'}
+            />
+          </button>
+        )}
+
         {/* Light Mode / Dark Mode Toggle Button */}
         {onToggleLightMode && (
           <button

@@ -29,12 +29,14 @@ interface HistoricalAnalysisViewProps {
   locations: MonitoredLocation[];
   selectedLocation: MonitoredLocation;
   onSelectLocation: (loc: MonitoredLocation) => void;
+  isLightMode?: boolean;
 }
 
 export const HistoricalAnalysisView: React.FC<HistoricalAnalysisViewProps> = ({
   locations,
   selectedLocation,
-  onSelectLocation
+  onSelectLocation,
+  isLightMode = false
 }) => {
   const [selectedLocId, setSelectedLocId] = useState(selectedLocation.id);
   const [timeframe, setTimeframe] = useState<7 | 30 | 90 | 365>(30);
@@ -49,26 +51,42 @@ export const HistoricalAnalysisView: React.FC<HistoricalAnalysisViewProps> = ({
   const warningBreachDays = timeSeriesData.filter((d) => d.riskScore >= 70).length;
 
   return (
-    <div className="p-4 md:p-6 space-y-6 overflow-y-auto h-full text-slate-100">
+    <div
+      className={`p-4 md:p-6 space-y-6 overflow-y-auto h-full transition-colors ${
+        isLightMode ? 'text-slate-800' : 'text-slate-100'
+      }`}
+    >
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div
+        className={`flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b ${
+          isLightMode ? 'border-slate-200' : 'border-slate-800'
+        }`}
+      >
         <div>
-          <div className="text-[11px] font-mono font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+          <div className="text-[11px] font-mono font-bold text-amber-500 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
             <History className="w-4 h-4" />
             Hydrometeorological Trend Analysis
           </div>
-          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-white mt-0.5">
-            Historical Landslide Risk & Rainfall Dynamics
+          <h1
+            className={`text-xl md:text-2xl font-bold tracking-tight mt-0.5 ${
+              isLightMode ? 'text-slate-900' : 'text-white'
+            }`}
+          >
+            Historical Retrospective & Antecedent Time Series
           </h1>
-          <p className="text-xs text-slate-400">
-            Multi-temporal analysis of rainfall triggers, soil saturation degradation, and historical threshold breach events.
+          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-3xl">
+            Multi-temporal analysis of precipitation events, soil moisture accumulation, and risk index trajectories across historical landslide periods.
           </p>
         </div>
 
-        {/* Controls: Location + Timeframe */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5">
-            <MapPin className="w-4 h-4 text-emerald-400 shrink-0" />
+          {/* Location Selector */}
+          <div
+            className={`flex items-center gap-2 border rounded-xl px-3 py-1.5 ${
+              isLightMode ? 'bg-white border-slate-300 shadow-xs' : 'bg-slate-900 border-slate-700'
+            }`}
+          >
+            <MapPin className="w-4 h-4 text-emerald-500 shrink-0" />
             <select
               value={activeLoc.id}
               onChange={(e) => {
@@ -76,95 +94,180 @@ export const HistoricalAnalysisView: React.FC<HistoricalAnalysisViewProps> = ({
                 const found = locations.find((l) => l.id === e.target.value);
                 if (found) onSelectLocation(found);
               }}
-              className="bg-transparent text-xs text-slate-200 focus:outline-none cursor-pointer"
+              className={`bg-transparent text-xs focus:outline-none cursor-pointer font-medium ${
+                isLightMode ? 'text-slate-800' : 'text-slate-200'
+              }`}
             >
               {locations.map((loc) => (
-                <option key={loc.id} value={loc.id} className="bg-slate-900 text-slate-200">
+                <option
+                  key={loc.id}
+                  value={loc.id}
+                  className={isLightMode ? 'bg-white text-slate-900' : 'bg-slate-900 text-slate-200'}
+                >
                   {loc.name} ({loc.state})
                 </option>
               ))}
             </select>
           </div>
 
-          <div className="flex bg-slate-900 border border-slate-700 rounded-lg p-0.5 text-xs font-mono">
+          {/* Timeframe selector */}
+          <div
+            className={`flex items-center gap-1 border rounded-xl p-1 text-xs font-mono font-semibold ${
+              isLightMode ? 'bg-white border-slate-300' : 'bg-slate-900 border-slate-700'
+            }`}
+          >
             {([7, 30, 90, 365] as const).map((days) => (
               <button
                 key={days}
                 onClick={() => setTimeframe(days)}
-                className={`px-3 py-1 rounded-md transition-all ${
+                className={`px-2.5 py-1 rounded-lg transition-all ${
                   timeframe === days
-                    ? 'bg-emerald-600 text-white font-bold shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'bg-amber-500 text-white font-bold'
+                    : isLightMode
+                    ? 'text-slate-600 hover:bg-slate-100'
+                    : 'text-slate-400 hover:bg-slate-800'
                 }`}
               >
-                {days === 365 ? '1 Year' : `${days}D`}
+                {days === 365 ? '1 Year' : `${days} Days`}
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* 4 Summary Metric Badges */}
+      {/* Summary Stat Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
-        <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
-          <span className="text-[10px] text-slate-400 uppercase">Monitored Window</span>
-          <div className="text-xl font-extrabold text-white mt-0.5">{timeframe} Days</div>
-          <div className="text-[10px] text-slate-500 mt-1">{activeLoc.name}</div>
-        </div>
-
-        <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
-          <span className="text-[10px] text-slate-400 uppercase">Peak 1-Day Rainfall</span>
-          <div className="text-xl font-extrabold text-cyan-400 mt-0.5">
-            {peakRainfall} <span className="text-xs font-normal">mm</span>
+        <div
+          className={`p-3.5 rounded-xl border ${
+            isLightMode ? 'bg-white border-slate-200 shadow-xs' : 'bg-slate-900/90 border-slate-800'
+          }`}
+        >
+          <span className="text-[10px] text-slate-400 uppercase">Selected Station</span>
+          <div className="text-sm font-extrabold text-slate-900 dark:text-white mt-0.5 truncate">
+            {activeLoc.name}
           </div>
-          <div className="text-[10px] text-slate-500 mt-1">Single-day monsoon surge</div>
+          <div className="text-[10px] text-slate-500 mt-1">{activeLoc.state}</div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
-          <span className="text-[10px] text-slate-400 uppercase">Warning Breach Days</span>
-          <div className="text-xl font-extrabold text-rose-400 mt-0.5">
-            {warningBreachDays} <span className="text-xs font-normal">Days (Score &ge; 70)</span>
+        <div
+          className={`p-3.5 rounded-xl border ${
+            isLightMode ? 'bg-white border-slate-200 shadow-xs' : 'bg-slate-900/90 border-slate-800'
+          }`}
+        >
+          <span className="text-[10px] text-slate-400 uppercase">Peak 24h Rainfall</span>
+          <div className="text-sm font-extrabold text-cyan-600 dark:text-cyan-400 mt-0.5">
+            {peakRainfall.toFixed(1)} mm
           </div>
-          <div className="text-[10px] text-slate-500 mt-1">High slope failure risk</div>
+          <div className="text-[10px] text-slate-500 mt-1">Within selected period</div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+        <div
+          className={`p-3.5 rounded-xl border ${
+            isLightMode ? 'bg-white border-slate-200 shadow-xs' : 'bg-slate-900/90 border-slate-800'
+          }`}
+        >
           <span className="text-[10px] text-slate-400 uppercase">Average Risk Score</span>
-          <div className="text-xl font-extrabold text-amber-400 mt-0.5">
-            {avgRisk} <span className="text-xs font-normal">/ 100</span>
+          <div className="text-sm font-extrabold text-amber-600 dark:text-amber-400 mt-0.5">
+            {avgRisk} / 100
           </div>
-          <div className="text-[10px] text-slate-500 mt-1">Temporal baseline</div>
+          <div className="text-[10px] text-slate-500 mt-1">Mean model risk</div>
+        </div>
+
+        <div
+          className={`p-3.5 rounded-xl border ${
+            isLightMode ? 'bg-white border-slate-200 shadow-xs' : 'bg-slate-900/90 border-slate-800'
+          }`}
+        >
+          <span className="text-[10px] text-slate-400 uppercase">Threshold Breach Days</span>
+          <div className="text-sm font-extrabold text-rose-600 dark:text-rose-400 mt-0.5">
+            {warningBreachDays} Days
+          </div>
+          <div className="text-[10px] text-slate-500 mt-1">Days with Warning ≥ 70</div>
         </div>
       </div>
 
-      {/* Main Historical Chart */}
-      <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4 shadow-xl">
-        <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+      {/* Main Dual-Axis Chart: Rainfall Bars & Risk Score Line */}
+      <div
+        className={`p-5 rounded-2xl border space-y-4 shadow-sm ${
+          isLightMode ? 'bg-white border-slate-200' : 'bg-slate-900/90 border-slate-800'
+        }`}
+      >
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
           <div>
-            <h3 className="font-bold text-xs text-slate-100 uppercase tracking-wide font-mono">
-              Rainfall vs Antecedent Index (API) vs Computed Risk ({timeframe}-Day Timeline)
+            <h3
+              className={`font-bold text-xs uppercase tracking-wide font-mono ${
+                isLightMode ? 'text-slate-800' : 'text-slate-100'
+              }`}
+            >
+              Precipitation vs. Unified Landslide Risk Trajectory
             </h3>
-            <p className="text-[11px] text-slate-400">
-              Interactive timeline correlating daily rainfall pulses with progressive slope saturation
+            <p className="text-[11px] text-slate-500">
+              Correlating daily precipitation events with predictive slope failure probabilities over time.
             </p>
           </div>
         </div>
 
-        <div className="h-80 w-full">
+        <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={timeSeriesData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-              <XAxis dataKey="dayLabel" tick={{ fontSize: 9, fill: '#64748b' }} />
-              <YAxis yAxisId="left" label={{ value: 'Rainfall / API (mm)', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 10 }} tick={{ fontSize: 10, fill: '#64748b' }} />
-              <YAxis yAxisId="right" orientation="right" domain={[0, 100]} label={{ value: 'Risk Score (/100)', angle: 90, position: 'insideRight', fill: '#64748b', fontSize: 10 }} tick={{ fontSize: 10, fill: '#64748b' }} />
-              <Tooltip
-                contentStyle={{ background: '#0f172a', borderColor: '#334155', borderRadius: '8px', fontSize: '11px' }}
-                labelStyle={{ color: '#94a3b8' }}
+            <ComposedChart
+              data={timeSeriesData}
+              margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke={isLightMode ? '#e2e8f0' : '#1e293b'} />
+              <XAxis
+                dataKey="date"
+                tick={{ fontSize: 10, fill: isLightMode ? '#64748b' : '#94a3b8' }}
               />
-              <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
-              <Bar yAxisId="left" dataKey="rainfallMm" name="Daily Rainfall (mm)" fill="#06b6d4" radius={[2, 2, 0, 0]} />
-              <Line yAxisId="left" type="monotone" dataKey="antecedentIndex" name="Antecedent Saturation (API)" stroke="#f59e0b" strokeWidth={2} dot={false} />
-              <Line yAxisId="right" type="monotone" dataKey="riskScore" name="Computed Risk Score" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 2 }} />
+              <YAxis
+                yAxisId="left"
+                label={{
+                  value: 'Rainfall (mm)',
+                  angle: -90,
+                  position: 'insideLeft',
+                  fill: isLightMode ? '#64748b' : '#94a3b8',
+                  fontSize: 10
+                }}
+                tick={{ fontSize: 10, fill: isLightMode ? '#64748b' : '#94a3b8' }}
+              />
+              <YAxis
+                yAxisId="right"
+                orientation="right"
+                domain={[0, 100]}
+                label={{
+                  value: 'Risk Score (0-100)',
+                  angle: 90,
+                  position: 'insideRight',
+                  fill: isLightMode ? '#64748b' : '#94a3b8',
+                  fontSize: 10
+                }}
+                tick={{ fontSize: 10, fill: isLightMode ? '#64748b' : '#94a3b8' }}
+              />
+              <Tooltip
+                contentStyle={{
+                  background: isLightMode ? '#ffffff' : '#0f172a',
+                  borderColor: isLightMode ? '#cbd5e1' : '#334155',
+                  borderRadius: '8px',
+                  fontSize: '11px',
+                  color: isLightMode ? '#0f172a' : '#f8fafc'
+                }}
+              />
+              <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
+              <Bar
+                yAxisId="left"
+                dataKey="rainfallMm"
+                name="Daily Rainfall (mm)"
+                fill="#38bdf8"
+                radius={[3, 3, 0, 0]}
+              />
+              <Line
+                yAxisId="right"
+                type="monotone"
+                dataKey="riskScore"
+                name="Landslide Risk Score"
+                stroke="#f59e0b"
+                strokeWidth={2.5}
+                dot={false}
+              />
             </ComposedChart>
           </ResponsiveContainer>
         </div>

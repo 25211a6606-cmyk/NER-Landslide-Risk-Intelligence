@@ -21,7 +21,7 @@ export interface RainfallMetrics {
   max3Day: number; // peak 3-day mm
   rainyDays: number; // number of days with >2.5mm rain in last 30d
   antecedentRainfallIndex: number; // 0 - 100 API index (weighted decay)
-  triggerLevel: 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
+  triggerLevel: 'LOW' | 'NORMAL' | 'MODERATE' | 'HIGH' | 'CRITICAL';
 }
 
 export type RainfallFeatures = RainfallMetrics;
@@ -45,7 +45,13 @@ export interface PredictionOutput {
 export interface ExposureAssets {
   roadSegments: {
     name: string;
-    type: 'National Highway' | 'State Highway' | 'District Road';
+    type:
+      | 'National Highway'
+      | 'State Highway'
+      | 'District Road'
+      | 'Strategic Road'
+      | 'Railway Track'
+      | 'City Arterial';
     distanceMeters: number;
     trafficVulnerability: 'HIGH' | 'MEDIUM' | 'LOW';
   }[];

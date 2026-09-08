@@ -21,17 +21,21 @@ import { AlertSubscription } from './components/alerts/AlertSubscription';
 import { HistoricalAnalysisView } from './components/history/HistoricalAnalysisView';
 import { ModelIntelligenceView } from './components/model/ModelIntelligenceView';
 import { DataStatusView } from './components/data-status/DataStatusView';
+import { RoadConnectivityView } from './components/infrastructure/RoadConnectivityView';
+import { EmergencyPrioritizationView } from './components/alerts/EmergencyPrioritizationView';
+import { FieldReportingModal } from './components/reporting/FieldReportingModal';
 
 import { MonitoredLocation, NERState } from './types/location';
 import { AlertItem, SystemNotification } from './types/alert';
-import { SystemSettingsState } from './types/config';
+import { SystemSettingsState, RiskThresholdConfig } from './types/config';
 
 import { locationService } from './services/locationService';
 import { alertService } from './services/alertService';
-import { PredictionEngine } from './services/predictionService';
+import { PredictionEngine, DEFAULT_THRESHOLDS } from './services/predictionService';
+import { SupportedLanguage } from './services/multilingualService';
 
 export default function App() {
-  // State management
+  // Global Application State: Loaded with all 70 locations across all 8 NER states
   const [locations, setLocations] = useState<MonitoredLocation[]>(() =>
     locationService.getAllLocations()
   );
@@ -52,6 +56,20 @@ export default function App() {
   const [isNotificationDrawerOpen, setIsNotificationDrawerOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isDevGuideModalOpen, setIsDevGuideModalOpen] = useState(false);
+  const [isFieldReportingOpen, setIsFieldReportingOpen] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState<SupportedLanguage>('en');
+  const [isOnline, setIsOnline] = useState<boolean>(typeof navigator !== 'undefined' ? navigator.onLine : true);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<string>(() =>
@@ -61,16 +79,9 @@ export default function App() {
   // User & System Configuration
   const [settings, setSettings] = useState<SystemSettingsState>({
     theme: 'light',
-    riskThresholds: {
-      normalMax: 39,
-      watchMax: 69,
-      warningMin: 70,
-      susceptibilityWeight: 0.45,
-      rainfallWeight: 0.4,
-      exposureWeight: 0.15
-    },
+    riskThresholds: { ...DEFAULT_THRESHOLDS },
     mapStyle: 'osm-standard',
-    autoRefreshIntervalSeconds: 60,
+    autoRefreshIntervalSeconds: 15,
     soundAlertsEnabled: true,
     demoMode: true,
     liveSimulationActive: true
@@ -85,6 +96,7 @@ export default function App() {
     }));
   };
 
+  // Synchronously compute active risk lists and state summaries
   const stateStats = locationService.getAllStatesSummary();
   const warningLocations = locations.filter((l) => l.prediction.riskLevel === 'WARNING');
   const watchLocations = locations.filter((l) => l.prediction.riskLevel === 'WATCH');
@@ -95,31 +107,85 @@ export default function App() {
     setIsLocationPanelOpen(true);
   };
 
+  // Dynamic Settings Update: Re-evaluates ALL 70 locations immediately whenever thresholds or weights change!
+  const handleUpdateSettings = (newVals: Partial<SystemSettingsState>) => {
+    setSettings((prev) => {
+      const updated = { ...prev, ...newVals };
+
+      // If risk thresholds or weights changed, immediately re-calculate risk scores & levels across all locations
+      if (newVals.riskThresholds) {
+        const recalculated = locationService.recalculateAllWithThresholds(newVals.riskThresholds);
+        setLocations(recalculated);
+
+        if (selectedLocation) {
+          const matching = recalculated.find((l) => l.id === selectedLocation.id);
+          if (matching) setSelectedLocation(matching);
+        }
+      }
+
+      return updated;
+    });
+  };
+
+  // Reset to default thresholds & re-evaluate entire location registry
+  const handleResetDefaults = () => {
+    const defaultThresholds: RiskThresholdConfig = {
+      normalMax: 39,
+      watchMax: 69,
+      warningMin: 70,
+      susceptibilityWeight: 0.45,
+      rainfallWeight: 0.40,
+      exposureWeight: 0.15
+    };
+
+    setSettings({
+      theme: 'light',
+      riskThresholds: defaultThresholds,
+      mapStyle: 'osm-standard',
+      autoRefreshIntervalSeconds: 15,
+      soundAlertsEnabled: true,
+      demoMode: true,
+      liveSimulationActive: true
+    });
+
+    const recalculated = locationService.recalculateAllWithThresholds(defaultThresholds);
+    setLocations(recalculated);
+
+    if (selectedLocation) {
+      const matching = recalculated.find((l) => l.id === selectedLocation.id);
+      if (matching) setSelectedLocation(matching);
+    }
+  };
+
   // Manual Refresh & Data Sync
   const handleManualRefresh = () => {
     setIsRefreshing(true);
     setTimeout(() => {
-      setLocations([...locationService.getAllLocations()]);
+      const { updatedLocations } = locationService.simulateRealTimeTelemetryTick(
+        settings.riskThresholds
+      );
+      setLocations(updatedLocations);
       setAlerts(alertService.getAllAlerts());
       setNotifications(alertService.getNotifications());
       setLastUpdated(
         new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + ' IST'
       );
       setIsRefreshing(false);
-    }, 600);
+    }, 500);
   };
 
   // Simulate Sudden Monsoon Storm Surge Action
   const handleTriggerDemoSurge = () => {
-    // Pick a watch location to spike into warning (e.g. Cherrapunji or Kohima)
+    // Pick a watch location to spike into warning (e.g. Cherrapunji or Kohima or Ranipool)
     const targetLoc =
       locations.find((l) => l.id === 'MEG_001') ||
       locations.find((l) => l.id === 'NAG_001') ||
+      locations.find((l) => l.id === 'SIK_001') ||
       locations[0];
 
     if (!targetLoc) return;
 
-    // Simulate extreme 24h rainfall spike
+    // Simulate extreme 24h rainfall cloudburst spike
     const updatedRainfall = {
       ...targetLoc.rainfall,
       today: 285.4,
@@ -152,7 +218,7 @@ export default function App() {
     alertService.broadcastAlertForLocation(
       updatedLoc,
       'WARNING',
-      'MONSOON SURGE SIMULATION: Extreme convective cloudburst (285 mm / 24h) triggered critical slope failure warning.'
+      `MONSOON SURGE SIMULATION: Extreme convective cloudburst (285 mm / 24h) triggered critical slope failure warning at ${updatedLoc.name}.`
     );
 
     setAlerts(alertService.getAllAlerts());
@@ -162,16 +228,49 @@ export default function App() {
     );
   };
 
-  // Auto-refresh polling timer
+  // Real-Time Live Telemetry Engine:
+  // Dynamically streams live IMD AWS weather telemetry, radar precipitation updates,
+  // and geotechnical piezometer pore-pressure ticks to monitored sites across all 8 states!
   useEffect(() => {
-    if (settings.autoRefreshIntervalSeconds <= 0) return;
+    if (!settings.liveSimulationActive || settings.autoRefreshIntervalSeconds <= 0) return;
+
     const interval = setInterval(() => {
-      setLastUpdated(
-        new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + ' IST'
-      );
+      const { updatedLocations, affectedLocations, newWarningsCount } =
+        locationService.simulateRealTimeTelemetryTick(settings.riskThresholds);
+
+      setLocations([...updatedLocations]);
+      const nowStr =
+        new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + ' IST';
+      setLastUpdated(nowStr);
+
+      if (selectedLocation) {
+        const matching = affectedLocations.find((l) => l.id === selectedLocation.id);
+        if (matching) setSelectedLocation(matching);
+      }
+
+      if (newWarningsCount > 0) {
+        // Dispatches early warning alert for newly breached locations
+        affectedLocations
+          .filter((l) => l.prediction.riskLevel === 'WARNING')
+          .forEach((loc) => {
+            alertService.broadcastAlertForLocation(
+              loc,
+              'WARNING',
+              `LIVE TELEMETRY ALERT: Real-time sensor threshold breach at ${loc.name} (${loc.state}). Soil moisture / rainfall intensity spiked to critical levels.`
+            );
+          });
+        setAlerts(alertService.getAllAlerts());
+        setNotifications(alertService.getNotifications());
+      }
     }, settings.autoRefreshIntervalSeconds * 1000);
+
     return () => clearInterval(interval);
-  }, [settings.autoRefreshIntervalSeconds]);
+  }, [
+    settings.liveSimulationActive,
+    settings.autoRefreshIntervalSeconds,
+    settings.riskThresholds,
+    selectedLocation
+  ]);
 
   return (
     <div
@@ -193,6 +292,10 @@ export default function App() {
         onTriggerDemoSurge={handleTriggerDemoSurge}
         isLightMode={isLightMode}
         onToggleLightMode={handleToggleLightMode}
+        onOpenFieldReport={() => setIsFieldReportingOpen(true)}
+        isOnline={isOnline}
+        currentLanguage={currentLanguage}
+        onLanguageChange={setCurrentLanguage}
       />
 
       {/* 2. Main Body Container: Sidebar + Active View Workspace + Slideout Intelligence Panel */}
@@ -310,6 +413,7 @@ export default function App() {
               locations={locations}
               selectedLocation={selectedLocation || locations[0]}
               onSelectLocation={handleSelectLocation}
+              isLightMode={isLightMode}
             />
           )}
 
@@ -318,6 +422,21 @@ export default function App() {
             <InfrastructureExposureView
               locations={locations}
               onSelectLocation={handleSelectLocation}
+              isLightMode={isLightMode}
+            />
+          )}
+
+          {/* VIEW 6b: Highway Lifelines & Road Connectivity */}
+          {activeTab === 'road-connectivity' && (
+            <RoadConnectivityView isLightMode={isLightMode} />
+          )}
+
+          {/* VIEW 6c: Emergency Response & Triage Prioritisation */}
+          {activeTab === 'emergency-response' && (
+            <EmergencyPrioritizationView
+              locations={locations}
+              onSelectLocation={handleSelectLocation}
+              isLightMode={isLightMode}
             />
           )}
 
@@ -356,11 +475,20 @@ export default function App() {
               locations={locations}
               selectedLocation={selectedLocation || locations[0]}
               onSelectLocation={handleSelectLocation}
+              isLightMode={isLightMode}
             />
           )}
 
           {/* VIEW 10: Model Intelligence (GeoAI & XAI) */}
-          {activeTab === 'model' && <ModelIntelligenceView />}
+          {activeTab === 'model' && (
+            <ModelIntelligenceView
+              settings={settings}
+              locations={locations}
+              selectedLocation={selectedLocation || undefined}
+              isLightMode={isLightMode}
+              onSelectLocation={handleSelectLocation}
+            />
+          )}
 
           {/* VIEW 11: Data Source Status */}
           {activeTab === 'data-status' && (
@@ -368,6 +496,8 @@ export default function App() {
               onManualRefresh={handleManualRefresh}
               isRefreshing={isRefreshing}
               lastUpdated={lastUpdated}
+              locations={locations}
+              isLightMode={isLightMode}
             />
           )}
         </main>
@@ -417,32 +547,24 @@ export default function App() {
         isOpen={isSettingsModalOpen}
         onClose={() => setIsSettingsModalOpen(false)}
         settings={settings}
-        onUpdateSettings={(newVals) => {
-          setSettings((prev) => ({ ...prev, ...newVals }));
-        }}
-        onResetDefaults={() => {
-          setSettings({
-            theme: 'dark',
-            riskThresholds: {
-              normalMax: 39,
-              watchMax: 69,
-              warningMin: 70,
-              susceptibilityWeight: 0.45,
-              rainfallWeight: 0.4,
-              exposureWeight: 0.15
-            },
-            mapStyle: 'carto-dark',
-            autoRefreshIntervalSeconds: 60,
-            soundAlertsEnabled: true,
-            demoModeActive: true
-          });
-        }}
+        onUpdateSettings={handleUpdateSettings}
+        onResetDefaults={handleResetDefaults}
+        locations={locations}
+        isLightMode={isLightMode}
       />
 
       {/* 6. Developer & SIH Hackathon Guide Modal */}
       <DeveloperModal
         isOpen={isDevGuideModalOpen}
         onClose={() => setIsDevGuideModalOpen(false)}
+      />
+
+      {/* 7. Field Hazard & Ground Incident Reporting Modal (Offline-Capable) */}
+      <FieldReportingModal
+        isOpen={isFieldReportingOpen}
+        onClose={() => setIsFieldReportingOpen(false)}
+        isOnline={isOnline}
+        isLightMode={isLightMode}
       />
     </div>
   );
