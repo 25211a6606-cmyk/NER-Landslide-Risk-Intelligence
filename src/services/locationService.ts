@@ -87,12 +87,24 @@ export class LocationService {
         else if (newToday > 60 || newApi > 70) newTriggerLevel = 'HIGH';
         else if (newToday > 35 || newApi > 50) newTriggerLevel = 'MODERATE';
 
+        const curMoisture = loc.rainfall.soilMoisturePct ?? 65.0;
+        const curPorePressure = loc.rainfall.poreWaterPressureKPa ?? 38.0;
+        const moistureDelta = isRainSurge ? +(Math.random() * 1.6 + 0.4).toFixed(1) : -0.2;
+        const poreDelta = isRainSurge ? +(Math.random() * 2.2 + 0.6).toFixed(1) : -0.3;
+
+        const newMoisture = Math.min(98, Math.max(25, +(curMoisture + moistureDelta).toFixed(1)));
+        const newPorePressure = Math.min(95, Math.max(10, +(curPorePressure + poreDelta).toFixed(1)));
+
         const updatedRainfall = {
           ...loc.rainfall,
           today: newToday,
           last7Days: new7d,
           antecedentRainfallIndex: newApi,
-          triggerLevel: newTriggerLevel
+          triggerLevel: newTriggerLevel,
+          soilMoisturePct: newMoisture,
+          poreWaterPressureKPa: newPorePressure,
+          telemetryStationId: loc.rainfall.telemetryStationId ?? `IMD-AWS-${loc.id}`,
+          telemetrySource: loc.rainfall.telemetrySource ?? 'IMD Automated Weather Station'
         };
 
         const prevRisk = loc.prediction.riskLevel;

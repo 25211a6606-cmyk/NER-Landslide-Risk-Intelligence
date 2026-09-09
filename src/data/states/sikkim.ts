@@ -559,5 +559,333 @@ export const SIKKIM_LOCATIONS: MonitoredLocation[] = [
     },
     lastUpdated: '2026-09-08T10:15:00+05:30',
     historicalEventsCount: 8
+  },
+  {
+    id: 'SIK_010',
+    name: 'Yuksom - Dzongri Himalayan Trailhead',
+    state: 'Sikkim',
+    district: 'Gyalshing',
+    latitude: 27.3710,
+    longitude: 88.2210,
+    environmental: {
+      elevation: 1780,
+      slope: 41.5,
+      aspect: 'North-West',
+      geology: 'Kanchenjunga Gneiss Complex & Garnetiferous Mica Schist',
+      soil: 'Glacial Till & Colluvial Bouldery Gravel',
+      landCover: 'Temperate Oak-Rhododendron Forest & Alpine Scree',
+      drainage: 'Rathong Chu High Energy Torrents',
+      faultDistanceKm: 1.6
+    },
+    rainfall: {
+      today: 72.0,
+      last3Days: 165.0,
+      last7Days: 295.0,
+      last15Days: 520.0,
+      last30Days: 840.0,
+      max1Day: 86.0,
+      max3Day: 182.0,
+      rainyDays: 19,
+      antecedentRainfallIndex: 74.0,
+      triggerLevel: 'HIGH',
+      telemetryStationId: 'IMD-AWS-YKS-10',
+      telemetrySource: 'IMD Automated Weather Station + GSI Pore Sensor',
+      soilMoisturePct: 79.5,
+      poreWaterPressureKPa: 52.4
+    },
+    prediction: {
+      susceptibilityScore: 0.78,
+      rainfallTriggerScore: 0.74,
+      riskScore: 77,
+      riskLevel: 'WARNING',
+      confidence: 0.93,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'High Slopes Gradient (41.5°)', value: 'Extreme High Mountain Relief', contribution: 0.34, percentage: 36 },
+        { feature: 'Heavy Orogaphic Infiltration (165mm 3D)', value: 'Severe Subsurface Saturation', contribution: 0.29, percentage: 31 },
+        { feature: 'Rathong Chu Torrential Toe Scour', value: 'High Basal River Energy', contribution: 0.22, percentage: 24 },
+        { feature: 'Trek Route Human Excavation', value: 'Localized Surcharge', contribution: 0.08, percentage: 9 }
+      ],
+      explanationPoints: [
+        'Critical debris avalanche risk triggered across Rathong Chu gorge blocking Yuksom-Geyzing transit link.',
+        'High pore pressure (52.4 kPa) detected across mica schist foliation plane.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Yuksom - Geyzing Highway', type: 'State Highway', distanceMeters: 20, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Yuksom Historic Enclave', population: 2100, distanceMeters: 380 }
+      ],
+      hospitals: 1,
+      schools: 1,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 2100
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 6
+  },
+  {
+    id: 'SIK_011',
+    name: 'Ravangla - Maenam Hill Ridge Observatory',
+    state: 'Sikkim',
+    district: 'Namchi',
+    latitude: 27.3080,
+    longitude: 88.3620,
+    environmental: {
+      elevation: 2050,
+      slope: 38.6,
+      aspect: 'South-East',
+      geology: 'Daling Group Phyllite with Chloritic Quartzite Bands',
+      soil: 'Weathered Silty Loam over Slaking Clay',
+      landCover: 'Temperate Coniferous Forest & High Altitude Tea Slopes',
+      drainage: 'Teesta Right-Bank Perennial Channels',
+      faultDistanceKm: 2.2
+    },
+    rainfall: {
+      today: 54.0,
+      last3Days: 122.0,
+      last7Days: 220.0,
+      last15Days: 410.0,
+      last30Days: 710.0,
+      max1Day: 68.0,
+      max3Day: 140.0,
+      rainyDays: 17,
+      antecedentRainfallIndex: 61.5,
+      triggerLevel: 'MODERATE',
+      telemetryStationId: 'IMD-AWS-RVG-11',
+      telemetrySource: 'IMD Automated Weather Station + In-situ Inclinometer',
+      soilMoisturePct: 66.8,
+      poreWaterPressureKPa: 36.2
+    },
+    prediction: {
+      susceptibilityScore: 0.65,
+      rainfallTriggerScore: 0.58,
+      riskScore: 63,
+      riskLevel: 'WATCH',
+      confidence: 0.90,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Slaking Weathered Phyllite Sheeting', value: 'Weak Shear Strength', contribution: 0.32, percentage: 36 },
+        { feature: 'Slope Incline (38.6°)', value: 'Steep Escarpment', contribution: 0.28, percentage: 31 },
+        { feature: 'Cumulative Precipitation (122mm 3D)', value: 'Pore Pressure Buildup', contribution: 0.22, percentage: 25 },
+        { feature: 'Forest Cover Buffer', value: 'Partial Stabilization', contribution: -0.07, percentage: 8 }
+      ],
+      explanationPoints: [
+        'Watch advisory on Ravangla-Legship transit artery due to rotational subsidence indicators in phyllite strata.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Ravangla - Legship Highway', type: 'State Highway', distanceMeters: 35, trafficVulnerability: 'MEDIUM' }
+      ],
+      settlements: [
+        { name: 'Ravangla Tourist Hub & Monasteries', population: 3800, distanceMeters: 600 }
+      ],
+      hospitals: 1,
+      schools: 2,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 3800
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 5
+  },
+  {
+    id: 'SIK_012',
+    name: 'Lachen Valley - Zemu Chu Debris Fan',
+    state: 'Sikkim',
+    district: 'Mangan',
+    latitude: 27.7240,
+    longitude: 88.5580,
+    environmental: {
+      elevation: 2750,
+      slope: 46.8,
+      aspect: 'East',
+      geology: 'Chungthang Formation Calcsilicate Gneiss & Glacial Drift Deposits',
+      soil: 'Morainic Debris & Unconsolidated Glaciofluvial Boulders',
+      landCover: 'Alpine Larch & High Mountain Scree',
+      drainage: 'Zemu Chu High Velocity Glacial Melt',
+      faultDistanceKm: 0.8
+    },
+    rainfall: {
+      today: 96.0,
+      last3Days: 218.0,
+      last7Days: 380.0,
+      last15Days: 620.0,
+      last30Days: 990.0,
+      max1Day: 112.0,
+      max3Day: 240.0,
+      rainyDays: 22,
+      antecedentRainfallIndex: 89.0,
+      triggerLevel: 'CRITICAL',
+      telemetryStationId: 'IMD-AWS-LCH-12',
+      telemetrySource: 'IMD Automated Weather Station + BRO Geophone Array',
+      soilMoisturePct: 88.4,
+      poreWaterPressureKPa: 68.9
+    },
+    prediction: {
+      susceptibilityScore: 0.94,
+      rainfallTriggerScore: 0.92,
+      riskScore: 93,
+      riskLevel: 'WARNING',
+      confidence: 0.97,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Glacial Outburst / Extreme Moraine Slope (46.8°)', value: 'Extreme Mountain Relief', contribution: 0.38, percentage: 39 },
+        { feature: 'Heavy Cloudburst + Glacial Melt (218mm 3D)', value: 'Extreme Hydrodynamic Surcharge', contribution: 0.32, percentage: 33 },
+        { feature: 'Main Central Thrust Proximity (0.8km)', value: 'High Fracturing', contribution: 0.21, percentage: 21 },
+        { feature: 'Strategic Army Logistic Axis', value: 'High Vibration', contribution: 0.07, percentage: 7 }
+      ],
+      explanationPoints: [
+        'CRITICAL RED ALERT: Debris flow warning along Lachen axis following cloudburst and moraine breach.',
+        'Immediate evacuation protocol advised for lower river terraces along North Sikkim Highway.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'North Sikkim Strategic Highway (Lachen Axis)', type: 'National Highway', distanceMeters: 10, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Lachen Township Outskirts', population: 2800, distanceMeters: 300 }
+      ],
+      hospitals: 1,
+      schools: 1,
+      criticalBridges: 2,
+      estimatedVulnerablePopulation: 2800
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 11
+  },
+  {
+    id: 'SIK_013',
+    name: 'Rhenock - Aritar Border Ridge',
+    state: 'Sikkim',
+    district: 'Pakyong',
+    latitude: 27.1850,
+    longitude: 88.6420,
+    environmental: {
+      elevation: 1120,
+      slope: 33.4,
+      aspect: 'South',
+      geology: 'Daling Group Phyllite with Quartz Intercalations',
+      soil: 'Clayey Loam with Low Permeability',
+      landCover: 'Cardamom Agroforestry & Terraced Paddy',
+      drainage: 'Reshi River Tributary Basin',
+      faultDistanceKm: 3.4
+    },
+    rainfall: {
+      today: 44.0,
+      last3Days: 96.0,
+      last7Days: 185.0,
+      last15Days: 340.0,
+      last30Days: 590.0,
+      max1Day: 58.0,
+      max3Day: 112.0,
+      rainyDays: 14,
+      antecedentRainfallIndex: 48.0,
+      triggerLevel: 'MODERATE',
+      telemetryStationId: 'IMD-AWS-RNK-13',
+      telemetrySource: 'IMD Automated Weather Station',
+      soilMoisturePct: 56.2,
+      poreWaterPressureKPa: 28.5
+    },
+    prediction: {
+      susceptibilityScore: 0.48,
+      rainfallTriggerScore: 0.46,
+      riskScore: 47,
+      riskLevel: 'WATCH',
+      confidence: 0.88,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Clayey Subsoil Saturation', value: 'Moderate Influx', contribution: 0.28, percentage: 35 },
+        { feature: 'Slope Incline (33.4°)', value: 'Moderate Slope Relief', contribution: 0.26, percentage: 32 },
+        { feature: 'Agricultural Terracing Irrigation Leakage', value: 'Anthropogenic Surcharge', contribution: 0.18, percentage: 22 },
+        { feature: 'Dense Cardamom Undergrowth', value: 'Erosion Retardant', contribution: -0.09, percentage: 11 }
+      ],
+      explanationPoints: [
+        'Watch status active on Rhenock-Rongli arterial corridor with localized shallow slumping reported.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Rhenock - Rongli - Aritar Road', type: 'State Highway', distanceMeters: 40, trafficVulnerability: 'MEDIUM' }
+      ],
+      settlements: [
+        { name: 'Aritar Tourist Lake Settlement', population: 1950, distanceMeters: 480 }
+      ],
+      hospitals: 1,
+      schools: 1,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 1950
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 4
+  },
+  {
+    id: 'SIK_014',
+    name: 'Chakung - Soreng Escarpment Cutting',
+    state: 'Sikkim',
+    district: 'Soreng',
+    latitude: 27.1650,
+    longitude: 88.2610,
+    environmental: {
+      elevation: 1540,
+      slope: 39.1,
+      aspect: 'North-East',
+      geology: 'Gondwana Formation Sandstone & Carbonaceous Shale',
+      soil: 'Friable Crushed Silt with Coal Specks',
+      landCover: 'Mixed Broom Grass & Degraded Oak Scrub',
+      drainage: 'Rammam River Right-Bank Ravine',
+      faultDistanceKm: 2.1
+    },
+    rainfall: {
+      today: 63.0,
+      last3Days: 140.0,
+      last7Days: 260.0,
+      last15Days: 480.0,
+      last30Days: 780.0,
+      max1Day: 75.0,
+      max3Day: 158.0,
+      rainyDays: 18,
+      antecedentRainfallIndex: 67.0,
+      triggerLevel: 'HIGH',
+      telemetryStationId: 'IMD-AWS-CKG-14',
+      telemetrySource: 'IMD Automated Weather Station + Piezometer',
+      soilMoisturePct: 74.0,
+      poreWaterPressureKPa: 46.8
+    },
+    prediction: {
+      susceptibilityScore: 0.72,
+      rainfallTriggerScore: 0.70,
+      riskScore: 71,
+      riskLevel: 'WARNING',
+      confidence: 0.92,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Friable Carbonaceous Shale Weathering', value: 'High Slaking Tendency', contribution: 0.33, percentage: 36 },
+        { feature: 'High Slope Incline (39.1°)', value: 'Steep Escarpment Cut', contribution: 0.28, percentage: 30 },
+        { feature: 'Rainfall Infiltration (140mm 3D)', value: 'High Influx', contribution: 0.25, percentage: 27 },
+        { feature: 'Highway Widening Excavation', value: 'Toe Removal', contribution: 0.09, percentage: 7 }
+      ],
+      explanationPoints: [
+        'Warning triggered on Soreng-Chakung link due to fresh tension crack opening across road bench.',
+        'High soil moisture (74.0%) and antecedent saturation demand geotechnical surveillance.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Soreng - Chakung - Nayabazar Highway', type: 'State Highway', distanceMeters: 20, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Chakung Bazar Outskirts', population: 2200, distanceMeters: 350 }
+      ],
+      hospitals: 0,
+      schools: 2,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 2200
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 7
   }
 ];

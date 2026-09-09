@@ -8,7 +8,9 @@ import {
   Clock,
   Info,
   Droplets,
-  Activity
+  Activity,
+  Radio,
+  Gauge
 } from 'lucide-react';
 import { MonitoredLocation } from '../../types/location';
 import { RainfallService } from '../../services/rainfallService';
@@ -77,7 +79,9 @@ export const RainfallTriggerView: React.FC<RainfallTriggerViewProps> = ({
         }`}
       >
         <div>
-          <div className="text-[11px] font-mono font-bold text-cyan-500 dark:text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+          <div className={`text-[11px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 ${
+            isLightMode ? 'text-cyan-700' : 'text-cyan-400'
+          }`}>
             <CloudRain className="w-4 h-4" />
             Meteorological & Hydrological Engine
           </div>
@@ -88,8 +92,8 @@ export const RainfallTriggerView: React.FC<RainfallTriggerViewProps> = ({
           >
             Rainfall Threshold & Trigger Dynamics
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-3xl">
-            Real-time analysis of IMD radar, GPM satellite 0.1° grids, antecedent precipitation decay, and empirical Caine Intensity-Duration (I-D) thresholds for all 70 monitored sites.
+          <p className={`text-xs max-w-3xl ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
+            Real-time analysis of IMD radar, GPM satellite 0.1° grids, antecedent precipitation decay, and empirical Caine Intensity-Duration (I-D) thresholds for all {locations.length} monitored sites across the 8 NER states.
           </p>
         </div>
 
@@ -131,11 +135,11 @@ export const RainfallTriggerView: React.FC<RainfallTriggerViewProps> = ({
             isLightMode ? 'bg-white border-slate-200 shadow-xs' : 'bg-slate-900/90 border-slate-800'
           }`}
         >
-          <span className="text-[10px] text-slate-400 uppercase">24-Hour Rainfall</span>
+          <span className={`text-[10px] uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>24-Hour Rainfall</span>
           <div className="text-xl font-extrabold text-cyan-600 dark:text-cyan-400 mt-0.5">
             {activeLoc.rainfall.today} <span className="text-xs font-normal">mm</span>
           </div>
-          <div className="text-[10px] text-slate-500 mt-1">IMD Auto Weather Station</div>
+          <div className={`text-[10px] mt-1 ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>IMD Auto Weather Station</div>
         </div>
 
         <div
@@ -143,11 +147,11 @@ export const RainfallTriggerView: React.FC<RainfallTriggerViewProps> = ({
             isLightMode ? 'bg-white border-slate-200 shadow-xs' : 'bg-slate-900/90 border-slate-800'
           }`}
         >
-          <span className="text-[10px] text-slate-400 uppercase">7-Day Cumulative</span>
-          <div className="text-xl font-extrabold text-slate-800 dark:text-slate-100 mt-0.5">
+          <span className={`text-[10px] uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>7-Day Cumulative</span>
+          <div className={`text-xl font-extrabold mt-0.5 ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
             {activeLoc.rainfall.last7Days} <span className="text-xs font-normal">mm</span>
           </div>
-          <div className="text-[10px] text-slate-500 mt-1">GPM Satellite 0.1° Raster</div>
+          <div className={`text-[10px] mt-1 ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>GPM Satellite 0.1° Raster</div>
         </div>
 
         <div
@@ -155,12 +159,12 @@ export const RainfallTriggerView: React.FC<RainfallTriggerViewProps> = ({
             isLightMode ? 'bg-white border-slate-200 shadow-xs' : 'bg-slate-900/90 border-slate-800'
           }`}
         >
-          <span className="text-[10px] text-slate-400 uppercase">Antecedent Index (API)</span>
+          <span className={`text-[10px] uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Antecedent Index (API)</span>
           <div className="text-xl font-extrabold text-amber-600 dark:text-amber-400 mt-0.5">
             {Math.round(activeLoc.rainfall.antecedentRainfallIndex)}{' '}
             <span className="text-xs font-normal">/ 100</span>
           </div>
-          <div className="text-[10px] text-slate-500 mt-1">Decay Factor $k=0.85$</div>
+          <div className={`text-[10px] mt-1 ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>Decay Factor $k=0.85$</div>
         </div>
 
         <div
@@ -168,7 +172,7 @@ export const RainfallTriggerView: React.FC<RainfallTriggerViewProps> = ({
             isLightMode ? 'bg-white border-slate-200 shadow-xs' : 'bg-slate-900/90 border-slate-800'
           }`}
         >
-          <span className="text-[10px] text-slate-400 uppercase">Dynamic Trigger State</span>
+          <span className={`text-[10px] uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Dynamic Trigger State</span>
           <div
             className={`text-xl font-extrabold mt-0.5 ${
               activeLoc.rainfall.triggerLevel === 'CRITICAL'
@@ -180,8 +184,53 @@ export const RainfallTriggerView: React.FC<RainfallTriggerViewProps> = ({
           >
             {activeLoc.rainfall.triggerLevel}
           </div>
-          <div className="text-[10px] text-slate-500 mt-1">
+          <div className={`text-[10px] mt-1 ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>
             Threshold {activeLoc.rainfall.today > 100 ? 'BREACHED' : 'NOMINAL'}
+          </div>
+        </div>
+      </div>
+
+      {/* Real-Time Telemetry Hardware & In-Situ Sensor Feed */}
+      <div
+        className={`p-3 rounded-xl border flex flex-wrap items-center justify-between gap-3 text-xs font-mono ${
+          isLightMode ? 'bg-cyan-50/70 border-cyan-200/80 text-slate-800' : 'bg-cyan-950/20 border-cyan-800/40 text-cyan-200'
+        }`}
+      >
+        <div className="flex items-center gap-2.5">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <div className="flex items-center gap-1.5">
+            <Radio className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+            <span className="font-semibold">{activeLoc.rainfall.telemetryStationId || `IMD-AWS-${activeLoc.id}`}</span>
+          </div>
+          <span className="text-[11px] opacity-75 hidden sm:inline">•</span>
+          <span className={`text-[11px] hidden sm:inline ${isLightMode ? 'text-slate-600' : 'text-slate-300'}`}>
+            {activeLoc.rainfall.telemetrySource || 'IMD Automated Weather Station'}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4 text-[11px]">
+          <div className="flex items-center gap-1">
+            <Droplets className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+            <span>Soil Saturation:</span>
+            <span className={`font-bold ${isLightMode ? 'text-cyan-800' : 'text-cyan-300'}`}>
+              {activeLoc.rainfall.soilMoisturePct ?? 65.0}%
+            </span>
+          </div>
+          <div className="flex items-center gap-1">
+            <Gauge className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+            <span>Pore Pressure:</span>
+            <span className={`font-bold ${isLightMode ? 'text-indigo-800' : 'text-indigo-300'}`}>
+              {activeLoc.rainfall.poreWaterPressureKPa ?? 38.0} kPa
+            </span>
+          </div>
+          <div className="flex items-center gap-1">
+            <Clock className="w-3 h-3 text-slate-500" />
+            <span className="text-[10px] text-slate-500">
+              Synced {new Date(activeLoc.lastUpdated).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </span>
           </div>
         </div>
       </div>
@@ -202,12 +251,12 @@ export const RainfallTriggerView: React.FC<RainfallTriggerViewProps> = ({
             <div>
               <h3
                 className={`font-bold text-xs uppercase tracking-wide font-mono ${
-                  isLightMode ? 'text-slate-800' : 'text-slate-100'
+                  isLightMode ? 'text-slate-900' : 'text-slate-100'
                 }`}
               >
                 Intensity-Duration (I-D) Empirical Threshold
               </h3>
-              <p className="text-[11px] text-slate-500">
+              <p className={`text-[11px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
                 Formula: $I = 14.82 \times D^{'-0.39'}$ (Caine 1980 / GSI Calibrated)
               </p>
             </div>
@@ -288,12 +337,12 @@ export const RainfallTriggerView: React.FC<RainfallTriggerViewProps> = ({
             <div>
               <h3
                 className={`font-bold text-xs uppercase tracking-wide font-mono ${
-                  isLightMode ? 'text-slate-800' : 'text-slate-100'
+                  isLightMode ? 'text-slate-900' : 'text-slate-100'
                 }`}
               >
                 Top Precipitation Hotspots Across NER (24h mm)
               </h3>
-              <p className="text-[11px] text-slate-500">
+              <p className={`text-[11px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
                 Sorted by highest daily rainfall across all 8 states
               </p>
             </div>

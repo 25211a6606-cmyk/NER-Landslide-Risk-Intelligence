@@ -557,5 +557,332 @@ export const ASSAM_LOCATIONS: MonitoredLocation[] = [
     },
     lastUpdated: '2026-09-08T10:15:00+05:30',
     historicalEventsCount: 8
+  },
+  {
+    id: 'ASM_010',
+    name: 'Mahur - New Haflong Hill Railway Cutting',
+    state: 'Assam',
+    district: 'Dima Hasao',
+    latitude: 25.1850,
+    longitude: 93.0450,
+    environmental: {
+      elevation: 620,
+      slope: 41.2,
+      aspect: 'South-East',
+      geology: 'Surma & Tipam Group Interbedded Siltstone & Liquefiable Marine Shale',
+      soil: 'High Plasticity Mudrock Colluvium with Slickensides',
+      landCover: 'Degraded Forest & Deep Engineered Railway Benches',
+      drainage: 'Jatinga River Tributary Gorge',
+      faultDistanceKm: 1.4
+    },
+    rainfall: {
+      today: 94.0,
+      last3Days: 215.0,
+      last7Days: 390.0,
+      last15Days: 640.0,
+      last30Days: 990.0,
+      max1Day: 110.0,
+      max3Day: 235.0,
+      rainyDays: 22,
+      antecedentRainfallIndex: 88.5,
+      triggerLevel: 'CRITICAL',
+      telemetryStationId: 'IMD-AWS-MHR-10',
+      telemetrySource: 'IMD Automated Weather Station + Northeast Frontier Railway Piezometer',
+      soilMoisturePct: 87.2,
+      poreWaterPressureKPa: 66.4
+    },
+    prediction: {
+      susceptibilityScore: 0.92,
+      rainfallTriggerScore: 0.93,
+      riskScore: 92,
+      riskLevel: 'WARNING',
+      confidence: 0.96,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Mudrock Liquefaction & Track Ballast Subsidence', value: 'High Liquefaction Risk', contribution: 0.37, percentage: 39 },
+        { feature: 'Catastrophic Monsoonal Inundation (215mm 3D)', value: 'Extreme Soil Saturation', contribution: 0.32, percentage: 34 },
+        { feature: 'Steep Track Cut Slope (41.2°)', value: 'Over-steepened Human Cut', contribution: 0.22, percentage: 23 },
+        { feature: 'Continuous Heavy Freight Vibration', value: 'Dynamic Loading', contribution: 0.08, percentage: 8 }
+      ],
+      explanationPoints: [
+        'CRITICAL RED ALERT: Major mudslide and track wash-away imminent along Lumding-Badarpur hill section at Mahur.',
+        'High pore pressure (66.4 kPa) recorded. Train operation suspension recommended.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Lumding - Silchar Hill Railway Axis', type: 'Railway Track', distanceMeters: 5, trafficVulnerability: 'HIGH' },
+        { name: 'Haflong - Mahur Highway (NH-27)', type: 'National Highway', distanceMeters: 30, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Mahur Railway Colony & Bazar', population: 3900, distanceMeters: 280 }
+      ],
+      hospitals: 1,
+      schools: 2,
+      criticalBridges: 2,
+      estimatedVulnerablePopulation: 3900
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 16
+  },
+  {
+    id: 'ASM_011',
+    name: 'Diphu - Manja Karbi Anglong Escarpment',
+    state: 'Assam',
+    district: 'Karbi Anglong',
+    latitude: 25.8620,
+    longitude: 93.4210,
+    environmental: {
+      elevation: 310,
+      slope: 33.5,
+      aspect: 'South',
+      geology: 'Shillong Plateau Outlier Granitic Gneiss & Weathered Regolith',
+      soil: 'Red Sandy Loam with Clay Substratum',
+      landCover: 'Rubber Plantation & Mixed Bamboo Scrub',
+      drainage: 'Jamuna River Catchment',
+      faultDistanceKm: 2.7
+    },
+    rainfall: {
+      today: 46.0,
+      last3Days: 104.0,
+      last7Days: 190.0,
+      last15Days: 360.0,
+      last30Days: 610.0,
+      max1Day: 58.0,
+      max3Day: 120.0,
+      rainyDays: 15,
+      antecedentRainfallIndex: 51.0,
+      triggerLevel: 'MODERATE',
+      telemetryStationId: 'IMD-AWS-DPH-11',
+      telemetrySource: 'IMD Automated Weather Station',
+      soilMoisturePct: 58.4,
+      poreWaterPressureKPa: 31.0
+    },
+    prediction: {
+      susceptibilityScore: 0.52,
+      rainfallTriggerScore: 0.48,
+      riskScore: 50,
+      riskLevel: 'WATCH',
+      confidence: 0.89,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Decomposed Regolith Thickness (4-8m)', value: 'Moderate Soil Mantle', contribution: 0.30, percentage: 36 },
+        { feature: 'Cumulative Precipitation (104mm 3D)', value: 'Active Seepage', contribution: 0.26, percentage: 31 },
+        { feature: 'Slope Incline (33.5°)', value: 'Moderate Slope', contribution: 0.22, percentage: 26 },
+        { feature: 'Rubber Tree Canopy', value: 'Moderate Interception', contribution: -0.06, percentage: 7 }
+      ],
+      explanationPoints: [
+        'Watch advisory on Diphu-Manja road connecting Karbi Anglong hills with NH-39 arterial link.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Diphu - Manja Highway (NH-329)', type: 'National Highway', distanceMeters: 40, trafficVulnerability: 'MEDIUM' }
+      ],
+      settlements: [
+        { name: 'Manja Foothill Settlement', population: 2650, distanceMeters: 600 }
+      ],
+      hospitals: 1,
+      schools: 1,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 2650
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 4
+  },
+  {
+    id: 'ASM_012',
+    name: 'Badarpur Ghat - Barak River Bluff',
+    state: 'Assam',
+    district: 'Karimganj',
+    latitude: 24.8950,
+    longitude: 92.5480,
+    environmental: {
+      elevation: 95,
+      slope: 34.0,
+      aspect: 'North-West',
+      geology: 'Tipam Sandstone & Dupi Tila Silt with River Meander Scour',
+      soil: 'Loose Alluvial Sandy Silt over Slaking Clay',
+      landCover: 'Dense Rural Settlement & River Embankments',
+      drainage: 'Barak River Major Meander Bend',
+      faultDistanceKm: 3.5
+    },
+    rainfall: {
+      today: 68.0,
+      last3Days: 152.0,
+      last7Days: 275.0,
+      last15Days: 480.0,
+      last30Days: 760.0,
+      max1Day: 82.0,
+      max3Day: 168.0,
+      rainyDays: 19,
+      antecedentRainfallIndex: 72.0,
+      triggerLevel: 'HIGH',
+      telemetryStationId: 'IMD-AWS-BDP-12',
+      telemetrySource: 'IMD Automated Weather Station + CWC River Stage Gauge',
+      soilMoisturePct: 79.8,
+      poreWaterPressureKPa: 50.2
+    },
+    prediction: {
+      susceptibilityScore: 0.76,
+      rainfallTriggerScore: 0.74,
+      riskScore: 75,
+      riskLevel: 'WARNING',
+      confidence: 0.93,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Barak River Swell Hydraulic Undercutting', value: 'High Toe Erosion', contribution: 0.35, percentage: 37 },
+        { feature: 'Heavy Monsoon Rain Surge (152mm 3D)', value: 'High Infiltration', contribution: 0.29, percentage: 31 },
+        { feature: 'Loose Dupi Tila Soil Fragility', value: 'Low Cohesion', contribution: 0.22, percentage: 23 },
+        { feature: 'Dense Habitation Surcharge', value: 'Structural Loading', contribution: 0.08, percentage: 9 }
+      ],
+      explanationPoints: [
+        'Warning triggered for riverbank collapse and slope failure near Badarpur Ghat railway bridge approaches.',
+        'High soil saturation (79.8%) and river flood pressure creating active rotational failure.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'NH-06 Badarpur Bridge Approach', type: 'National Highway', distanceMeters: 20, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Badarpur Ghat Bazaar Sector', population: 5200, distanceMeters: 250 }
+      ],
+      hospitals: 1,
+      schools: 2,
+      criticalBridges: 2,
+      estimatedVulnerablePopulation: 5200
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 9
+  },
+  {
+    id: 'ASM_013',
+    name: 'Goalpara - Tukreswari Hill Spur',
+    state: 'Assam',
+    district: 'Goalpara',
+    latitude: 26.0520,
+    longitude: 90.6210,
+    environmental: {
+      elevation: 180,
+      slope: 36.8,
+      aspect: 'North',
+      geology: 'Proterozoic Porphyritic Granite Residual Inselberg',
+      soil: 'Coarse Sandy Silt with Granite Boulder Talus',
+      landCover: 'Sal Forest & Foothill Shrines',
+      drainage: 'Brahmaputra South-Bank Streamlets',
+      faultDistanceKm: 3.8
+    },
+    rainfall: {
+      today: 38.0,
+      last3Days: 85.0,
+      last7Days: 160.0,
+      last15Days: 310.0,
+      last30Days: 540.0,
+      max1Day: 48.0,
+      max3Day: 98.0,
+      rainyDays: 13,
+      antecedentRainfallIndex: 42.0,
+      triggerLevel: 'LOW',
+      telemetryStationId: 'IMD-AWS-GLP-13',
+      telemetrySource: 'IMD Automated Weather Station',
+      soilMoisturePct: 48.2,
+      poreWaterPressureKPa: 22.0
+    },
+    prediction: {
+      susceptibilityScore: 0.38,
+      rainfallTriggerScore: 0.36,
+      riskScore: 37,
+      riskLevel: 'NORMAL',
+      confidence: 0.91,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Competent Granite Inselberg Bedrock', value: 'High Structural Strength', contribution: -0.25, percentage: 40 },
+        { feature: 'Moderate Slopes (36.8°)', value: 'Moderate Slope Relief', contribution: 0.22, percentage: 35 },
+        { feature: 'Low Cumulative Precipitation (85mm 3D)', value: 'Adequate Drainage', contribution: -0.15, percentage: 25 }
+      ],
+      explanationPoints: [
+        'Normal operating status across Western Assam foothill nodes; no immediate threshold breaches.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Goalpara - Krishnai Highway (NH-17)', type: 'National Highway', distanceMeters: 60, trafficVulnerability: 'LOW' }
+      ],
+      settlements: [
+        { name: 'Tukra Temple Foothill Village', population: 1650, distanceMeters: 550 }
+      ],
+      hospitals: 0,
+      schools: 1,
+      criticalBridges: 0,
+      estimatedVulnerablePopulation: 1650
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 3
+  },
+  {
+    id: 'ASM_014',
+    name: 'Sonapur - Digaru Foothill Escarpment',
+    state: 'Assam',
+    district: 'Kamrup Metro',
+    latitude: 26.1150,
+    longitude: 91.9820,
+    environmental: {
+      elevation: 160,
+      slope: 32.1,
+      aspect: 'South-West',
+      geology: 'Archaean Biotite Granite Gneiss with Heavy Red Colluvium',
+      soil: 'Lateritic Silty Clay over Fractured Quartz-Feldspar Bedrock',
+      landCover: 'Commercial Brick Kilns, Tea Gardens & Highway Infrastructure',
+      drainage: 'Digaru River Lowland Braided Channel',
+      faultDistanceKm: 2.8
+    },
+    rainfall: {
+      today: 55.0,
+      last3Days: 125.0,
+      last7Days: 235.0,
+      last15Days: 430.0,
+      last30Days: 720.0,
+      max1Day: 66.0,
+      max3Day: 138.0,
+      rainyDays: 17,
+      antecedentRainfallIndex: 62.0,
+      triggerLevel: 'MODERATE',
+      telemetryStationId: 'IMD-AWS-SNP-14',
+      telemetrySource: 'IMD Automated Weather Station + MEMS Tiltmeter',
+      soilMoisturePct: 68.4,
+      poreWaterPressureKPa: 38.0
+    },
+    prediction: {
+      susceptibilityScore: 0.62,
+      rainfallTriggerScore: 0.58,
+      riskScore: 61,
+      riskLevel: 'WATCH',
+      confidence: 0.90,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Hill Cutting for Highway Widening & Soil Mining', value: 'Toe Removal', contribution: 0.32, percentage: 35 },
+        { feature: 'Rainfall Infiltration (125mm 3D)', value: 'Moderate-High Influx', contribution: 0.27, percentage: 30 },
+        { feature: 'Slope Incline (32.1°)', value: 'Moderate Hill Slopes', contribution: 0.23, percentage: 25 },
+        { feature: 'Heavy 4-Lane Freight Traffic', value: 'Constant Vibration', contribution: 0.08, percentage: 10 }
+      ],
+      explanationPoints: [
+        'Watch status active on East-West Corridor (NH-27) between Sonapur and Khetri due to cut-slope slumping.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'NH-27 (East-West National Highway Corridor)', type: 'National Highway', distanceMeters: 15, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Sonapur Transit Town', population: 4200, distanceMeters: 450 }
+      ],
+      hospitals: 1,
+      schools: 2,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 4200
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 6
   }
 ];

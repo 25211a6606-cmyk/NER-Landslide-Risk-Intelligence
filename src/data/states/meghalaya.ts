@@ -565,5 +565,333 @@ export const MEGHALAYA_LOCATIONS: MonitoredLocation[] = [
     },
     lastUpdated: '2026-09-08T10:15:00+05:30',
     historicalEventsCount: 3
+  },
+  {
+    id: 'MEG_010',
+    name: 'Williamnagar - Simsang River Gorge',
+    state: 'Meghalaya',
+    district: 'East Garo Hills',
+    latitude: 25.5970,
+    longitude: 90.6210,
+    environmental: {
+      elevation: 420,
+      slope: 36.4,
+      aspect: 'South-West',
+      geology: 'Archaean Gneiss Complex & Tertiary Sandstone Siltstone',
+      soil: 'Red Lateritic Gravelly Loam',
+      landCover: 'Secondary Bamboo Groves & Riverine Forest',
+      drainage: 'Simsang River High Gradient Torrent',
+      faultDistanceKm: 2.1
+    },
+    rainfall: {
+      today: 64.5,
+      last3Days: 142.0,
+      last7Days: 248.0,
+      last15Days: 420.0,
+      last30Days: 710.0,
+      max1Day: 78.0,
+      max3Day: 155.0,
+      rainyDays: 18,
+      antecedentRainfallIndex: 68.4,
+      triggerLevel: 'HIGH',
+      telemetryStationId: 'IMD-AWS-WMR-10',
+      telemetrySource: 'IMD Automated Weather Station + MEMS Tiltmeter',
+      soilMoisturePct: 76.2,
+      poreWaterPressureKPa: 48.5
+    },
+    prediction: {
+      susceptibilityScore: 0.74,
+      rainfallTriggerScore: 0.76,
+      riskScore: 75,
+      riskLevel: 'WARNING',
+      confidence: 0.91,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Simsang Riverbank Basal Scour', value: 'High Toe Erosion', contribution: 0.32, percentage: 34 },
+        { feature: 'Rainfall Infiltration (142mm / 3D)', value: 'Heavy Monsoonal Influx', contribution: 0.28, percentage: 30 },
+        { feature: 'Slope Gradient (36.4°)', value: 'Steep River Bluff', contribution: 0.22, percentage: 24 },
+        { feature: 'Soil Surcharge from Cultivation', value: 'Moderate Disturbance', contribution: 0.11, percentage: 12 }
+      ],
+      explanationPoints: [
+        'Active slope destabilization along Simsang river bank with direct undercutting of SH-4 road corridor.',
+        'High soil saturation (76.2%) combined with 64.5mm 24h precipitation initiates warning status.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'State Highway 4 (Williamnagar-Tura Corridor)', type: 'State Highway', distanceMeters: 25, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Williamnagar Riverside Basti', population: 3100, distanceMeters: 400 }
+      ],
+      hospitals: 1,
+      schools: 2,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 3100
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 5
+  },
+  {
+    id: 'MEG_011',
+    name: 'Baghmara - Balpakram Canyon Rim',
+    state: 'Meghalaya',
+    district: 'South Garo Hills',
+    latitude: 25.1950,
+    longitude: 90.6380,
+    environmental: {
+      elevation: 620,
+      slope: 42.1,
+      aspect: 'South',
+      geology: 'Garo Group Massive Sandstone & Sedimentary Shale Beds',
+      soil: 'Porous Sandy Silt over Fractured Shale Bedrock',
+      landCover: 'Dense Canopy Semi-Evergreen Forest',
+      drainage: 'Mahadeo River Deep Ravine System',
+      faultDistanceKm: 1.4
+    },
+    rainfall: {
+      today: 88.0,
+      last3Days: 198.0,
+      last7Days: 340.0,
+      last15Days: 580.0,
+      last30Days: 910.0,
+      max1Day: 104.0,
+      max3Day: 215.0,
+      rainyDays: 21,
+      antecedentRainfallIndex: 82.5,
+      triggerLevel: 'CRITICAL',
+      telemetryStationId: 'IMD-AWS-BGM-11',
+      telemetrySource: 'IMD Automated Weather Station + In-situ Piezometer',
+      soilMoisturePct: 84.8,
+      poreWaterPressureKPa: 61.2
+    },
+    prediction: {
+      susceptibilityScore: 0.86,
+      rainfallTriggerScore: 0.88,
+      riskScore: 87,
+      riskLevel: 'WARNING',
+      confidence: 0.94,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Steep Escarpment Relief (42.1°)', value: 'Critical Plateau Scarp', contribution: 0.36, percentage: 38 },
+        { feature: 'Sustained Heavy Infiltration (340mm 7D)', value: 'Extreme Soil Saturation', contribution: 0.31, percentage: 33 },
+        { feature: 'Weak Sandstone-Shale Interbeds', value: 'High Slip Potential', contribution: 0.20, percentage: 21 },
+        { feature: 'Forest Root Cohesion', value: 'Stabilizing Factor', contribution: -0.07, percentage: 8 }
+      ],
+      explanationPoints: [
+        'Critical debris slide hazard on canyon rim access road towards Balpakram National Park and coal transshipment route.',
+        'High pore pressure (61.2 kPa) recorded at basal shale interface.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Baghmara - Ranikor Strategic Border Road', type: 'District Road', distanceMeters: 40, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Baghmara Bazaar Frontier Settlement', population: 2450, distanceMeters: 550 }
+      ],
+      hospitals: 1,
+      schools: 1,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 2450
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 6
+  },
+  {
+    id: 'MEG_012',
+    name: 'Khliehriat - Umlyngsha Escarpment',
+    state: 'Meghalaya',
+    district: 'East Jaintia Hills',
+    latitude: 25.3520,
+    longitude: 92.3680,
+    environmental: {
+      elevation: 1210,
+      slope: 34.8,
+      aspect: 'South-East',
+      geology: 'Shella Formation Sandstone with Rat-hole Coal Seam Voids',
+      soil: 'Acidic Friable Silt & Uncompacted Mine Overburden',
+      landCover: 'Reclaimed Scrub & Mining Spoils',
+      drainage: 'Myntdu - Lubha Catchment Tributary',
+      faultDistanceKm: 2.8
+    },
+    rainfall: {
+      today: 52.0,
+      last3Days: 118.0,
+      last7Days: 210.0,
+      last15Days: 390.0,
+      last30Days: 680.0,
+      max1Day: 68.0,
+      max3Day: 135.0,
+      rainyDays: 16,
+      antecedentRainfallIndex: 58.0,
+      triggerLevel: 'MODERATE',
+      telemetryStationId: 'IMD-AWS-KLT-12',
+      telemetrySource: 'IMD Automated Weather Station',
+      soilMoisturePct: 62.4,
+      poreWaterPressureKPa: 34.0
+    },
+    prediction: {
+      susceptibilityScore: 0.62,
+      rainfallTriggerScore: 0.55,
+      riskScore: 59,
+      riskLevel: 'WATCH',
+      confidence: 0.89,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Subsurface Mining Subsidence Voids', value: 'High Structural Instability', contribution: 0.30, percentage: 35 },
+        { feature: 'Slope Gradient (34.8°)', value: 'Moderate-Steep Relief', contribution: 0.25, percentage: 29 },
+        { feature: 'Cumulative Precipitation (118mm 3D)', value: 'Active Seepage', contribution: 0.24, percentage: 28 },
+        { feature: 'Heavy Mineral Truck Vibration', value: 'Continuous Loading', contribution: 0.07, percentage: 8 }
+      ],
+      explanationPoints: [
+        'Watch advisory for NH-06 freight corridor near Khliehriat toll barrier due to legacy mine subsidence risks.',
+        'Rainfall trigger remains moderate with watch protocol active.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'NH-06 (Shillong - Silchar Freight Lifeline)', type: 'National Highway', distanceMeters: 30, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Umlyngsha Village', population: 1850, distanceMeters: 320 }
+      ],
+      hospitals: 0,
+      schools: 1,
+      criticalBridges: 0,
+      estimatedVulnerablePopulation: 1850
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 4
+  },
+  {
+    id: 'MEG_013',
+    name: 'Resubelpara - Damas Valley Pass',
+    state: 'Meghalaya',
+    district: 'North Garo Hills',
+    latitude: 25.9080,
+    longitude: 90.5890,
+    environmental: {
+      elevation: 340,
+      slope: 28.5,
+      aspect: 'North-East',
+      geology: 'Weathered Gneissic Basement with Alluvial Terraces',
+      soil: 'Sandy Clay Loam with High Infiltration Index',
+      landCover: 'Arecanut Plantation & Mixed Deciduous Forest',
+      drainage: 'Damring River Meander Cutoff',
+      faultDistanceKm: 4.2
+    },
+    rainfall: {
+      today: 34.0,
+      last3Days: 78.0,
+      last7Days: 145.0,
+      last15Days: 280.0,
+      last30Days: 520.0,
+      max1Day: 42.0,
+      max3Day: 90.0,
+      rainyDays: 12,
+      antecedentRainfallIndex: 38.0,
+      triggerLevel: 'LOW',
+      telemetryStationId: 'IMD-AWS-RSB-13',
+      telemetrySource: 'IMD Automated Weather Station',
+      soilMoisturePct: 44.5,
+      poreWaterPressureKPa: 18.2
+    },
+    prediction: {
+      susceptibilityScore: 0.34,
+      rainfallTriggerScore: 0.32,
+      riskScore: 33,
+      riskLevel: 'NORMAL',
+      confidence: 0.92,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Moderate Slopes (28.5°)', value: 'Stable Terraced Relief', contribution: 0.22, percentage: 38 },
+        { feature: 'Low Antecedent Moisture (38/100)', value: 'Good Infiltration Drainage', contribution: -0.18, percentage: 32 },
+        { feature: 'Vegetative Tree Canopy', value: 'Root Anchoring', contribution: -0.12, percentage: 20 },
+        { feature: 'Local Road Drainage Channels', value: 'Well Maintained', contribution: -0.06, percentage: 10 }
+      ],
+      explanationPoints: [
+        'Normal operating conditions across North Garo Hills transit spine with low rainfall trigger levels.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Mendipathar - Resubelpara Highway', type: 'State Highway', distanceMeters: 80, trafficVulnerability: 'LOW' }
+      ],
+      settlements: [
+        { name: 'Damas Central Village', population: 1400, distanceMeters: 700 }
+      ],
+      hospitals: 1,
+      schools: 1,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 1400
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 2
+  },
+  {
+    id: 'MEG_014',
+    name: 'Mairang - Kyllang Rock Granitic Spur',
+    state: 'Meghalaya',
+    district: 'Eastern West Khasi Hills',
+    latitude: 25.5680,
+    longitude: 91.6420,
+    environmental: {
+      elevation: 1680,
+      slope: 39.2,
+      aspect: 'North-West',
+      geology: 'South Khasi Batholith Coarse Biotite Granite Monolith',
+      soil: 'Thin Lithic Leptosols & Granitic Grus',
+      landCover: 'Exposed Granite Rock Faces & Sparse Pine',
+      drainage: 'Kynshi Headwater Streamlets',
+      faultDistanceKm: 3.1
+    },
+    rainfall: {
+      today: 58.0,
+      last3Days: 130.0,
+      last7Days: 230.0,
+      last15Days: 410.0,
+      last30Days: 690.0,
+      max1Day: 72.0,
+      max3Day: 144.0,
+      rainyDays: 17,
+      antecedentRainfallIndex: 64.0,
+      triggerLevel: 'MODERATE',
+      telemetryStationId: 'IMD-AWS-MRG-14',
+      telemetrySource: 'IMD Automated Weather Station + Crackmeter',
+      soilMoisturePct: 69.5,
+      poreWaterPressureKPa: 38.6
+    },
+    prediction: {
+      susceptibilityScore: 0.68,
+      rainfallTriggerScore: 0.62,
+      riskScore: 66,
+      riskLevel: 'WATCH',
+      confidence: 0.90,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Sheet Jointing & Exfoliation Slab Dislodgement', value: 'Joint Cleavage', contribution: 0.34, percentage: 37 },
+        { feature: 'Slope Gradient (39.2°)', value: 'Steep Granitic Dome Spur', contribution: 0.29, percentage: 32 },
+        { feature: 'Rainfall Infiltration in Joint Sets', value: 'Hydrostatic Pressure', contribution: 0.22, percentage: 24 },
+        { feature: 'Sparse Vegetation Cover', value: 'High Runoff Velocity', contribution: 0.07, percentage: 7 }
+      ],
+      explanationPoints: [
+        'Watch advisory for rockfall and exfoliation slab detachment onto Mairang-Ranigodown link road.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Mairang - Nongkhlaw Scenic Road', type: 'District Road', distanceMeters: 35, trafficVulnerability: 'MEDIUM' }
+      ],
+      settlements: [
+        { name: 'Kyllang Foothill Settlement', population: 1650, distanceMeters: 450 }
+      ],
+      hospitals: 0,
+      schools: 1,
+      criticalBridges: 0,
+      estimatedVulnerablePopulation: 1650
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 3
   }
 ];

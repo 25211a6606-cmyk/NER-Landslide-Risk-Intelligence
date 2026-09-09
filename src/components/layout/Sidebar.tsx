@@ -149,7 +149,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Navigation List */}
       <div className="flex-1 py-3 px-2 overflow-y-auto space-y-1">
         {!isCollapsed && (
-          <div className="px-3 pb-2 text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
+          <div className={`px-3 pb-2 text-[10px] font-mono uppercase tracking-wider font-semibold ${
+            isLightMode ? 'text-slate-600' : 'text-slate-400'
+          }`}>
             Operational Modules
           </div>
         )}

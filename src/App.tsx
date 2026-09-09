@@ -89,6 +89,16 @@ export default function App() {
 
   const isLightMode = settings.theme === 'light';
 
+  useEffect(() => {
+    if (isLightMode) {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+    }
+  }, [isLightMode]);
+
   const handleToggleLightMode = () => {
     setSettings((prev) => ({
       ...prev,
@@ -422,6 +432,10 @@ export default function App() {
             <InfrastructureExposureView
               locations={locations}
               onSelectLocation={handleSelectLocation}
+              onNavigateToMap={(loc) => {
+                handleSelectLocation(loc);
+                setActiveTab('map');
+              }}
               isLightMode={isLightMode}
             />
           )}

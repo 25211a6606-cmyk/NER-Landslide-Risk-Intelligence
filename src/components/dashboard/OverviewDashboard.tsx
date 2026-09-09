@@ -134,13 +134,13 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
         {/* Prediction Formula Strip */}
         <div
           className={`mt-4 pt-3.5 border-t flex flex-wrap items-center gap-2 text-[11px] font-mono ${
-            isLightMode ? 'border-slate-100 text-slate-600' : 'border-slate-800/80 text-slate-400'
+            isLightMode ? 'border-slate-200 text-slate-700' : 'border-slate-800/80 text-slate-300'
           }`}
         >
-          <span className="font-semibold text-slate-500">Hazard Weighting:</span>
+          <span className={`font-semibold ${isLightMode ? 'text-slate-700' : 'text-slate-300'}`}>Hazard Weighting:</span>
           <span
             className={`px-2 py-0.5 rounded border ${
-              isLightMode ? 'bg-slate-100 border-slate-200 text-slate-700' : 'bg-slate-950 border-slate-800 text-slate-300'
+              isLightMode ? 'bg-slate-100 border-slate-300 text-slate-800' : 'bg-slate-950 border-slate-800 text-slate-300'
             }`}
           >
             Static Susceptibility (45%)
@@ -179,11 +179,11 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
               : 'bg-slate-900 hover:bg-slate-850 border-slate-800'
           }`}
         >
-          <div className="text-[10px] font-mono text-slate-500 uppercase font-semibold">Total Sites</div>
+          <div className={`text-[10px] font-mono uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Total Sites</div>
           <div className={`text-xl font-extrabold mt-1 ${isLightMode ? 'text-slate-900' : 'text-white'}`}>
             {totalLocations}
           </div>
-          <div className="text-[10px] text-slate-500 group-hover:underline mt-1 font-medium">All Stations &rarr;</div>
+          <div className={`text-[10px] group-hover:underline mt-1 font-medium ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>All Stations &rarr;</div>
         </button>
 
         {/* 2. High Risk / Warning Sites */}
@@ -249,11 +249,11 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
               : 'bg-slate-900 hover:bg-slate-850 border-slate-800'
           }`}
         >
-          <div className="text-[10px] font-mono text-slate-500 uppercase font-semibold">Active Alerts</div>
+          <div className={`text-[10px] font-mono uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Active Alerts</div>
           <div className={`text-xl font-extrabold mt-1 ${isLightMode ? 'text-slate-900' : 'text-white'}`}>
             {activeAlerts.length}
           </div>
-          <div className="text-[10px] text-slate-500 group-hover:underline mt-1 font-medium">Alerts Log &rarr;</div>
+          <div className={`text-[10px] group-hover:underline mt-1 font-medium ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Alerts Log &rarr;</div>
         </button>
 
         {/* 6. Exposed Road Corridors */}
@@ -265,11 +265,11 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
               : 'bg-slate-900 hover:bg-slate-850 border-slate-800'
           }`}
         >
-          <div className="text-[10px] font-mono text-slate-500 uppercase font-semibold">Exposed NH</div>
+          <div className={`text-[10px] font-mono uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Exposed NH</div>
           <div className={`text-xl font-extrabold mt-1 ${isLightMode ? 'text-slate-900' : 'text-white'}`}>
             {totalRoads}
           </div>
-          <div className="text-[10px] text-slate-500 group-hover:underline mt-1 font-medium">Corridors &rarr;</div>
+          <div className={`text-[10px] group-hover:underline mt-1 font-medium ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Corridors &rarr;</div>
         </button>
 
         {/* 7. Exposed Settlements */}
@@ -281,11 +281,11 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
               : 'bg-slate-900 hover:bg-slate-850 border-slate-800'
           }`}
         >
-          <div className="text-[10px] font-mono text-slate-500 uppercase font-semibold">Settlements</div>
+          <div className={`text-[10px] font-mono uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Settlements</div>
           <div className={`text-xl font-extrabold mt-1 ${isLightMode ? 'text-slate-900' : 'text-white'}`}>
             {totalSettlements}
           </div>
-          <div className="text-[10px] text-slate-500 group-hover:underline mt-1 font-medium">Exposure &rarr;</div>
+          <div className={`text-[10px] group-hover:underline mt-1 font-medium ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Exposure &rarr;</div>
         </button>
 
         {/* 8. Vulnerable Population Covered */}
@@ -297,7 +297,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
               : 'bg-slate-900 hover:bg-slate-850 border-slate-800'
           }`}
         >
-          <div className="text-[10px] font-mono text-slate-500 uppercase font-semibold">Pop. Covered</div>
+          <div className={`text-[10px] font-mono uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Pop. Covered</div>
           <div className="text-xl font-extrabold text-emerald-600 mt-1">
             {(totalVulnerablePop / 1000).toFixed(0)}k
           </div>
@@ -311,7 +311,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
           isLightMode ? 'bg-white border-slate-200 shadow-xs' : 'bg-slate-900 border-slate-800'
         }`}
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+        <div className={`flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b ${isLightMode ? 'border-slate-100' : 'border-slate-800'}`}>
           <div>
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-emerald-600" />
@@ -323,7 +323,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
                 Pinpoint Landslide Monitoring Stations ({filteredSites.length})
               </h2>
             </div>
-            <p className={`text-xs mt-0.5 ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>
+            <p className={`text-xs mt-0.5 ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
               Direct live telemetry, dynamic risk score, 24h rainfall, and terrain gradient per station.
             </p>
           </div>
@@ -331,15 +331,19 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
           {/* Quick Filter & Search Bar */}
           <div className="flex flex-wrap items-center gap-2">
             {/* Risk Tier Chips */}
-            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
+            <div className={`flex items-center gap-1 p-1 rounded-lg border ${isLightMode ? 'bg-slate-100 border-slate-200' : 'bg-slate-800 border-slate-700'}`}>
               {(['ALL', 'WARNING', 'WATCH', 'NORMAL'] as const).map((lvl) => (
                 <button
                   key={lvl}
                   onClick={() => setSiteRiskFilter(lvl)}
                   className={`px-2 py-1 rounded text-[11px] font-mono font-semibold transition-all ${
                     siteRiskFilter === lvl
-                      ? 'bg-white text-slate-900 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
+                      ? isLightMode
+                        ? 'bg-white text-slate-900 shadow-xs font-bold'
+                        : 'bg-slate-700 text-white shadow-xs font-bold'
+                      : isLightMode
+                      ? 'text-slate-600 hover:text-slate-900'
+                      : 'text-slate-400 hover:text-slate-100'
                   }`}
                 >
                   {lvl}
@@ -476,7 +480,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
             isLightMode ? 'bg-white border-slate-200 shadow-xs' : 'bg-slate-900 border-slate-800'
           }`}
         >
-          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+          <div className={`flex items-center justify-between pb-2 border-b ${isLightMode ? 'border-slate-100' : 'border-slate-800'}`}>
             <div className="flex items-center gap-2">
               <ShieldAlert className="w-4 h-4 text-rose-600" />
               <h3
@@ -519,10 +523,10 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
                     >
                       {loc.name}
                     </div>
-                    <div className="text-[11px] text-slate-500 font-mono">
+                    <div className={`text-[11px] font-mono ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
                       {loc.district}, {loc.state} • Elev: {loc.environmental.elevation}m
                     </div>
-                    <div className="text-[10px] text-cyan-700 font-mono mt-0.5">
+                    <div className={`text-[10px] font-mono mt-0.5 ${isLightMode ? 'text-cyan-800' : 'text-cyan-400'}`}>
                       Rain 24h: {loc.rainfall.today}mm • Antecedent Index: {Math.round(loc.rainfall.antecedentRainfallIndex)}/100
                     </div>
                   </div>
@@ -532,7 +536,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
                   <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300">
                     SCORE {loc.prediction.riskScore}
                   </span>
-                  <div className="text-[10px] text-slate-400 mt-1">
+                  <div className={`text-[10px] mt-1 ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>
                     {loc.prediction.confidence * 100}% Conf
                   </div>
                 </div>
@@ -547,7 +551,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
             isLightMode ? 'bg-white border-slate-200 shadow-xs' : 'bg-slate-900 border-slate-800'
           }`}
         >
-          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+          <div className={`flex items-center justify-between pb-2 border-b ${isLightMode ? 'border-slate-100' : 'border-slate-800'}`}>
             <div className="flex items-center gap-2">
               <Radio className="w-4 h-4 text-cyan-600" />
               <h3
@@ -581,21 +585,21 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
                   <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 text-rose-800 border border-rose-300">
                     {alert.riskLevel} • {alert.state}
                   </span>
-                  <span className="text-[10px] font-mono text-slate-400">
+                  <span className={`text-[10px] font-mono ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>
                     {new Date(alert.timestamp).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })} IST
                   </span>
                 </div>
 
-                <div className={`text-xs font-bold ${isLightMode ? 'text-slate-900' : 'text-slate-200'}`}>
+                <div className={`text-xs font-bold ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
                   {alert.locationName}
                 </div>
-                <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed">
+                <p className={`text-[11px] line-clamp-2 leading-relaxed ${isLightMode ? 'text-slate-600' : 'text-slate-300'}`}>
                   {alert.triggerReason}
                 </p>
 
-                <div className="flex items-center justify-between pt-1 text-[10px] text-slate-400 font-mono">
-                  <span>Radius: {alert.affectedRadiusKm} km</span>
-                  <span className="text-emerald-700 font-bold">
+                <div className="flex items-center justify-between pt-1 text-[10px] font-mono">
+                  <span className={isLightMode ? 'text-slate-500' : 'text-slate-400'}>Radius: {alert.affectedRadiusKm} km</span>
+                  <span className={`font-bold ${isLightMode ? 'text-emerald-700' : 'text-emerald-400'}`}>
                     {alert.affectedSubscribersCount} Subscribers Notified
                   </span>
                 </div>

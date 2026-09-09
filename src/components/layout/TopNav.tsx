@@ -126,7 +126,7 @@ export const TopNav: React.FC<TopNavProps> = ({
               </span>
             </h1>
           </div>
-          <div className="flex items-center gap-2 text-[11px] text-slate-500 font-mono">
+          <div className={`flex items-center gap-2 text-[11px] font-mono ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               LIVE TELEMETRY

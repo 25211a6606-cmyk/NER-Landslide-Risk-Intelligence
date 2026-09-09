@@ -22,6 +22,10 @@ export interface RainfallMetrics {
   rainyDays: number; // number of days with >2.5mm rain in last 30d
   antecedentRainfallIndex: number; // 0 - 100 API index (weighted decay)
   triggerLevel: 'LOW' | 'NORMAL' | 'MODERATE' | 'HIGH' | 'CRITICAL';
+  telemetryStationId?: string; // IMD automated weather station identifier
+  telemetrySource?: string; // Sensor telemetry provider
+  soilMoisturePct?: number; // Volumetric soil moisture percentage (%)
+  poreWaterPressureKPa?: number; // In-situ piezometer pore pressure (kPa)
 }
 
 export type RainfallFeatures = RainfallMetrics;

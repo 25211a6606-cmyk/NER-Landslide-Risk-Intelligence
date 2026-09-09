@@ -327,19 +327,19 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left: SHAP Waterfall Plot (7 cols) */}
             <div className={`lg:col-span-7 p-5 rounded-2xl border space-y-4 ${isLightMode ? 'bg-white border-slate-200 shadow-sm' : 'bg-slate-900 border-slate-800'}`}>
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className={`flex items-center justify-between border-b pb-3 ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
                 <div>
-                  <h3 className="text-sm font-bold uppercase tracking-wider flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-emerald-400" />
+                  <h3 className={`text-sm font-bold uppercase tracking-wider flex items-center gap-2 ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
+                    <Sparkles className="w-4 h-4 text-emerald-500" />
                     Local SHAP Waterfall Decomposition
                   </h3>
-                  <p className="text-xs text-slate-400">
+                  <p className={`text-xs ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
                     Step-by-step feature push from Population Baseline (E[f(x)] = 36.0) to Final Risk Score ({riskScore}/100)
                   </p>
                 </div>
                 <div className="text-right font-mono text-xs">
-                  <span className="text-slate-500">Base Expectation:</span>
-                  <div className="font-bold text-slate-300">36.0 pts</div>
+                  <span className={isLightMode ? 'text-slate-500' : 'text-slate-400'}>Base Expectation:</span>
+                  <div className={`font-bold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>36.0 pts</div>
                 </div>
               </div>
 
@@ -362,23 +362,25 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
                     >
                       <div className="space-y-0.5">
                         <div className="flex items-center gap-2">
-                          <span className={`font-bold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>{item.feature}</span>
+                          <span className={`font-bold ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>{item.feature}</span>
                           <span className={`text-[11px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>({item.featureValue})</span>
                         </div>
-                        <div className={`text-[10px] ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>
-                          Category: <span className={`font-semibold ${isLightMode ? 'text-slate-700' : 'text-slate-300'}`}>{item.category}</span> • Step: {item.baselineContribution} → {item.resultingScore}
+                        <div className={`text-[10px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
+                          Category: <span className={`font-semibold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>{item.category}</span> • Step: {item.baselineContribution} → {item.resultingScore}
                         </div>
                       </div>
 
                       <div className="text-right shrink-0">
                         <span
                           className={`font-black text-sm px-2 py-0.5 rounded ${
-                            isPositive ? 'bg-rose-500/20 text-rose-500' : 'bg-emerald-500/20 text-emerald-500'
+                            isPositive
+                              ? isLightMode ? 'bg-rose-100 text-rose-700 border border-rose-300' : 'bg-rose-500/20 text-rose-400'
+                              : isLightMode ? 'bg-emerald-100 text-emerald-700 border border-emerald-300' : 'bg-emerald-500/20 text-emerald-400'
                           }`}
                         >
                           {isPositive ? `+${item.shapDelta}` : `${item.shapDelta}`} pts
                         </span>
-                        <div className={`text-[10px] mt-0.5 font-sans ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>{item.impactLabel}</div>
+                        <div className={`text-[10px] mt-0.5 font-sans ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>{item.impactLabel}</div>
                       </div>
                     </div>
                   );
@@ -389,11 +391,11 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
               <div className={`mt-4 p-3.5 rounded-xl border text-xs font-mono space-y-1 ${
                 isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'
               }`}>
-                <div className="text-[11px] font-bold text-amber-500 uppercase tracking-wider flex items-center gap-1.5">
+                <div className={`text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 ${isLightMode ? 'text-amber-700' : 'text-amber-400'}`}>
                   <FileCheck className="w-3.5 h-3.5" />
                   LIME Local Decision Rule
                 </div>
-                <p className={`leading-relaxed text-[11px] ${isLightMode ? 'text-slate-700' : 'text-slate-300'}`}>
+                <p className={`leading-relaxed text-[11px] ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>
                   <code>
                     IF 24h_Precipitation &gt; 35mm AND Antecedent_API &gt; 65 AND Slope_Angle &gt; 30° AND Lithology == '{(currentEnv.geology || 'Disang').split(' ')[0]}' THEN Hazard Probability = {riskScore}% [Local Fidelity: 96.4%]
                   </code>
@@ -403,14 +405,14 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
 
             {/* Right: Geotechnical Physics (Infinite Slope FoS) (5 cols) */}
             <div className={`lg:col-span-5 p-5 rounded-2xl border space-y-5 ${isLightMode ? 'bg-white border-slate-200 shadow-sm' : 'bg-slate-900 border-slate-800'}`}>
-              <div className="border-b border-slate-800 pb-3">
+              <div className={`border-b pb-3 ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
                 <div className="flex items-center gap-2">
-                  <Scale className="w-5 h-5 text-cyan-400" />
-                  <h3 className="text-sm font-bold uppercase tracking-wider">
+                  <Scale className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+                  <h3 className={`text-sm font-bold uppercase tracking-wider ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
                     Geotechnical Factor of Safety (FoS)
                   </h3>
                 </div>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className={`text-xs mt-0.5 ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
                   Mohr-Coulomb shear equilibrium: FoS = Resisting Shear (τ_f) / Driving Stress (τ_d)
                 </p>
               </div>
@@ -419,10 +421,10 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
               <div
                 className={`p-4 rounded-xl border text-center space-y-2 ${
                   physicsFoS.factorOfSafety < 1.0
-                    ? 'bg-rose-500/15 border-rose-500/40 text-rose-400'
+                    ? isLightMode ? 'bg-rose-50 border-rose-300 text-rose-700' : 'bg-rose-500/15 border-rose-500/40 text-rose-400'
                     : physicsFoS.factorOfSafety <= 1.25
-                    ? 'bg-amber-500/15 border-amber-500/40 text-amber-400'
-                    : 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
+                    ? isLightMode ? 'bg-amber-50 border-amber-300 text-amber-800' : 'bg-amber-500/15 border-amber-500/40 text-amber-400'
+                    : isLightMode ? 'bg-emerald-50 border-emerald-300 text-emerald-700' : 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
                 }`}
               >
                 <div className="text-xs font-bold uppercase tracking-widest">Mechanical Stability Index</div>
@@ -437,40 +439,40 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
 
               {/* Geotechnical Parameters Breakdown */}
               <div className="space-y-2.5 text-xs font-mono">
-                <div className="flex justify-between py-1 border-b border-slate-800">
-                  <span className="text-slate-400">Pore Water Pressure (u):</span>
-                  <span className="font-bold text-cyan-400">{physicsFoS.poreWaterPressureKPa} kPa</span>
+                <div className={`flex justify-between py-1 border-b ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
+                  <span className={isLightMode ? 'text-slate-600' : 'text-slate-400'}>Pore Water Pressure (u):</span>
+                  <span className={`font-bold ${isLightMode ? 'text-cyan-700' : 'text-cyan-400'}`}>{physicsFoS.poreWaterPressureKPa} kPa</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-800">
-                  <span className="text-slate-400">Driving Gravitational Shear (τ_d):</span>
-                  <span className="font-bold text-rose-400">{physicsFoS.drivingShearStressKPa} kPa</span>
+                <div className={`flex justify-between py-1 border-b ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
+                  <span className={isLightMode ? 'text-slate-600' : 'text-slate-400'}>Driving Gravitational Shear (τ_d):</span>
+                  <span className={`font-bold ${isLightMode ? 'text-rose-700' : 'text-rose-400'}`}>{physicsFoS.drivingShearStressKPa} kPa</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-800">
-                  <span className="text-slate-400">Resisting Shear Strength (τ_f):</span>
-                  <span className="font-bold text-emerald-400">{physicsFoS.resistingShearStrengthKPa} kPa</span>
+                <div className={`flex justify-between py-1 border-b ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
+                  <span className={isLightMode ? 'text-slate-600' : 'text-slate-400'}>Resisting Shear Strength (τ_f):</span>
+                  <span className={`font-bold ${isLightMode ? 'text-emerald-700' : 'text-emerald-400'}`}>{physicsFoS.resistingShearStrengthKPa} kPa</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-800">
-                  <span className="text-slate-400">Effective Soil Cohesion (c'):</span>
-                  <span className="font-bold text-slate-200">{physicsFoS.effectiveCohesionKPa} kPa</span>
+                <div className={`flex justify-between py-1 border-b ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
+                  <span className={isLightMode ? 'text-slate-600' : 'text-slate-400'}>Effective Soil Cohesion (c'):</span>
+                  <span className={`font-bold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>{physicsFoS.effectiveCohesionKPa} kPa</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-800">
-                  <span className="text-slate-400">Internal Friction Angle (φ'):</span>
-                  <span className="font-bold text-slate-200">{physicsFoS.internalFrictionAngleDeg}°</span>
+                <div className={`flex justify-between py-1 border-b ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
+                  <span className={isLightMode ? 'text-slate-600' : 'text-slate-400'}>Internal Friction Angle (φ'):</span>
+                  <span className={`font-bold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>{physicsFoS.internalFrictionAngleDeg}°</span>
                 </div>
               </div>
 
               {/* Actionable Counterfactual Advice Box */}
-              <div className="p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wider text-indigo-400 flex items-center gap-1.5">
+              <div className={`p-3.5 rounded-xl border space-y-2 ${isLightMode ? 'bg-indigo-50 border-indigo-200' : 'bg-indigo-500/10 border-indigo-500/30'}`}>
+                <div className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${isLightMode ? 'text-indigo-800' : 'text-indigo-400'}`}>
                   <Compass className="w-4 h-4" />
                   Counterfactual Mitigation Blueprint
                 </div>
-                <p className="text-xs text-slate-200 leading-relaxed">
+                <p className={`text-xs leading-relaxed ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>
                   <strong>Engineering Action:</strong> {counterfactual.engineeringIntervention}
                 </p>
-                <div className="pt-2 border-t border-indigo-500/20 text-xs font-mono grid grid-cols-2 gap-2 text-slate-300">
-                  <div>Pore Relief Req: <strong className="text-indigo-300">{counterfactual.porePressureReliefNeededKPa} kPa</strong></div>
-                  <div>Rain Fallback: <strong className="text-indigo-300">-{counterfactual.rainfallReductionNeededMm} mm</strong></div>
+                <div className={`pt-2 border-t text-xs font-mono grid grid-cols-2 gap-2 ${isLightMode ? 'border-indigo-200 text-slate-700' : 'border-indigo-500/20 text-slate-300'}`}>
+                  <div>Pore Relief Req: <strong className={isLightMode ? 'text-indigo-700' : 'text-indigo-300'}>{counterfactual.porePressureReliefNeededKPa} kPa</strong></div>
+                  <div>Rain Fallback: <strong className={isLightMode ? 'text-indigo-700' : 'text-indigo-300'}>-{counterfactual.rainfallReductionNeededMm} mm</strong></div>
                 </div>
               </div>
             </div>
@@ -481,17 +483,19 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
       {/* TAB 2: HISTORICAL NER LANDSLIDE GROUND-TRUTH BENCHMARK (2010–2025) */}
       {activeTab === 'historical-benchmark' && (
         <div className="space-y-4 animate-fadeIn">
-          <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/60 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className={`p-4 rounded-xl border flex flex-col md:flex-row md:items-center justify-between gap-3 ${
+            isLightMode ? 'bg-amber-50/70 border-amber-200' : 'border-slate-800 bg-slate-900/60'
+          }`}>
             <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
+              <h3 className={`text-sm font-bold uppercase tracking-wider flex items-center gap-2 ${isLightMode ? 'text-amber-800' : 'text-amber-400'}`}>
                 <History className="w-4 h-4" />
                 Verified GSI Landslide Database Ground-Truth Backtesting
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className={`text-xs ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
                 Evaluating GeoAI prediction accuracy against 10 authentic major disaster events across all 8 North-Eastern States.
               </p>
             </div>
-            <div className="text-xs font-mono text-emerald-400 font-bold">
+            <div className={`text-xs font-mono font-bold ${isLightMode ? 'text-emerald-700' : 'text-emerald-400'}`}>
               Historical Backtest Accuracy: 100% (10/10 Warnings Correctly Predicted)
             </div>
           </div>
@@ -507,59 +511,71 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-slate-800 text-amber-300 border border-slate-700">
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono border ${
+                        isLightMode ? 'bg-slate-100 text-slate-800 border-slate-300' : 'bg-slate-800 text-amber-300 border-slate-700'
+                      }`}>
                         {hist.gsiCatalogNumber}
                       </span>
-                      <span className="text-xs font-bold text-rose-400">{hist.state}</span>
+                      <span className={`text-xs font-bold ${isLightMode ? 'text-rose-700' : 'text-rose-400'}`}>{hist.state}</span>
                     </div>
-                    <h4 className="text-sm font-bold mt-1 text-slate-100">{hist.name}</h4>
-                    <p className="text-xs text-slate-400 font-mono">
+                    <h4 className={`text-sm font-bold mt-1 ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>{hist.name}</h4>
+                    <p className={`text-xs font-mono ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
                       {hist.district} • {hist.eventDate} • Type: {hist.failureType}
                     </p>
                   </div>
 
                   <div className="text-right">
-                    <span className="px-2.5 py-1 rounded-full text-xs font-black bg-rose-500/20 text-rose-400 border border-rose-500/30">
+                    <span className={`px-2.5 py-1 rounded-full text-xs font-black border ${
+                      isLightMode ? 'bg-rose-100 text-rose-800 border-rose-300' : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                    }`}>
                       {hist.fatalities} Fatalities
                     </span>
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-300 leading-relaxed">{hist.description}</p>
+                <p className={`text-xs leading-relaxed ${isLightMode ? 'text-slate-700' : 'text-slate-300'}`}>{hist.description}</p>
 
                 {/* Hydrological Trigger and Infrastructure Impact */}
-                <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 grid grid-cols-3 gap-2 text-center text-xs font-mono">
+                <div className={`p-2.5 rounded-lg border grid grid-cols-3 gap-2 text-center text-xs font-mono ${
+                  isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'
+                }`}>
                   <div>
-                    <div className="text-slate-500 text-[10px]">24h Rainfall</div>
-                    <div className="font-bold text-cyan-400">{hist.rainfallTrigger24hMm} mm</div>
+                    <div className={`text-[10px] ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>24h Rainfall</div>
+                    <div className={`font-bold ${isLightMode ? 'text-cyan-700' : 'text-cyan-400'}`}>{hist.rainfallTrigger24hMm} mm</div>
                   </div>
                   <div>
-                    <div className="text-slate-500 text-[10px]">7-Day Cumulative</div>
-                    <div className="font-bold text-cyan-400">{hist.antecedentRainfall7dMm} mm</div>
+                    <div className={`text-[10px] ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>7-Day Cumulative</div>
+                    <div className={`font-bold ${isLightMode ? 'text-cyan-700' : 'text-cyan-400'}`}>{hist.antecedentRainfall7dMm} mm</div>
                   </div>
                   <div>
-                    <div className="text-slate-500 text-[10px]">Slope Gradient</div>
-                    <div className="font-bold text-emerald-400">{hist.slopeAngleDeg}°</div>
+                    <div className={`text-[10px] ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>Slope Gradient</div>
+                    <div className={`font-bold ${isLightMode ? 'text-emerald-700' : 'text-emerald-400'}`}>{hist.slopeAngleDeg}°</div>
                   </div>
                 </div>
 
                 {/* GeoAI Model Retrospective Output */}
-                <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-xs font-mono space-y-1">
+                <div className={`p-2.5 rounded-lg border text-xs font-mono space-y-1 ${
+                  isLightMode ? 'bg-emerald-50/80 border-emerald-300' : 'bg-emerald-500/10 border-emerald-500/30'
+                }`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-emerald-400 font-bold flex items-center gap-1">
+                    <span className={`font-bold flex items-center gap-1 ${isLightMode ? 'text-emerald-800' : 'text-emerald-400'}`}>
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       GeoAI Prediction: {hist.backtestedModelPrediction.predictedRiskLevel} ({hist.backtestedModelPrediction.predictedRiskScore}/100)
                     </span>
-                    <span className="text-slate-400">Lead Time: <strong>{hist.backtestedModelPrediction.leadTimeHours}h early</strong></span>
+                    <span className={isLightMode ? 'text-slate-600' : 'text-slate-400'}>Lead Time: <strong>{hist.backtestedModelPrediction.leadTimeHours}h early</strong></span>
                   </div>
-                  <div className="text-[11px] text-slate-300">
-                    Physics FoS: <strong className="text-rose-400">{hist.backtestedModelPrediction.factorOfSafetyCalculated}</strong> | Trigger: {hist.backtestedModelPrediction.primaryShapTrigger}
+                  <div className={`text-[11px] ${isLightMode ? 'text-slate-700' : 'text-slate-300'}`}>
+                    Physics FoS: <strong className={isLightMode ? 'text-rose-700' : 'text-rose-400'}>{hist.backtestedModelPrediction.factorOfSafetyCalculated}</strong> | Trigger: {hist.backtestedModelPrediction.primaryShapTrigger}
                   </div>
                 </div>
 
                 <button
                   onClick={() => handleLoadHistoricalEvent(hist)}
-                  className="w-full py-1.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center justify-center gap-1 transition-colors"
+                  className={`w-full py-1.5 rounded-lg text-xs font-bold border flex items-center justify-center gap-1 transition-colors ${
+                    isLightMode
+                      ? 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'
+                      : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700'
+                  }`}
                 >
                   Load into Live SHAP Waterfall
                   <ArrowRight className="w-3 h-3" />
@@ -573,13 +589,13 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
       {/* TAB 3: WHAT-IF SIMULATION SANDBOX */}
       {activeTab === 'sandbox' && (
         <div className={`p-5 rounded-2xl border space-y-5 shadow-xl ${isLightMode ? 'bg-white border-slate-200' : 'bg-slate-900 border-slate-800'}`}>
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+          <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
             <div>
-              <h2 className="font-bold text-sm uppercase tracking-wide font-mono flex items-center gap-2">
-                <Sliders className="w-4 h-4 text-emerald-400" />
+              <h2 className={`font-bold text-sm uppercase tracking-wide font-mono flex items-center gap-2 ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
+                <Sliders className="w-4 h-4 text-emerald-500" />
                 Interactive Geotechnical & Hydrometeorological Sandbox
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className={`text-xs ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
                 Dynamically alter slope gradient, 24h cloudburst deluge, and antecedent saturation to observe live GeoAI inference and Mohr-Coulomb stability.
               </p>
             </div>
@@ -590,8 +606,8 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
             <div className="lg:col-span-7 space-y-4 text-xs font-mono">
               <div>
                 <div className="flex justify-between mb-1">
-                  <span className="text-slate-300">Slope Gradient:</span>
-                  <span className="font-bold text-emerald-400">{simSlope}°</span>
+                  <span className={isLightMode ? 'text-slate-700' : 'text-slate-300'}>Slope Gradient:</span>
+                  <span className={`font-bold ${isLightMode ? 'text-emerald-700' : 'text-emerald-400'}`}>{simSlope}°</span>
                 </div>
                 <input
                   type="range"
@@ -605,8 +621,8 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
 
               <div>
                 <div className="flex justify-between mb-1">
-                  <span className="text-slate-300">24h Storm Deluge:</span>
-                  <span className="font-bold text-cyan-400">{simRainfall24h} mm/day</span>
+                  <span className={isLightMode ? 'text-slate-700' : 'text-slate-300'}>24h Storm Deluge:</span>
+                  <span className={`font-bold ${isLightMode ? 'text-cyan-700' : 'text-cyan-400'}`}>{simRainfall24h} mm/day</span>
                 </div>
                 <input
                   type="range"
@@ -620,8 +636,8 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
 
               <div>
                 <div className="flex justify-between mb-1">
-                  <span className="text-slate-300">7-Day Cumulative Deluge:</span>
-                  <span className="font-bold text-cyan-400">{simRainfall7d} mm</span>
+                  <span className={isLightMode ? 'text-slate-700' : 'text-slate-300'}>7-Day Cumulative Deluge:</span>
+                  <span className={`font-bold ${isLightMode ? 'text-cyan-700' : 'text-cyan-400'}`}>{simRainfall7d} mm</span>
                 </div>
                 <input
                   type="range"
@@ -635,8 +651,8 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
 
               <div>
                 <div className="flex justify-between mb-1">
-                  <span className="text-slate-300">Antecedent Precipitation Index (API):</span>
-                  <span className="font-bold text-amber-400">{simAntecedent} / 100</span>
+                  <span className={isLightMode ? 'text-slate-700' : 'text-slate-300'}>Antecedent Precipitation Index (API):</span>
+                  <span className={`font-bold ${isLightMode ? 'text-amber-700' : 'text-amber-400'}`}>{simAntecedent} / 100</span>
                 </div>
                 <input
                   type="range"
@@ -650,8 +666,8 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
 
               <div>
                 <div className="flex justify-between mb-1">
-                  <span className="text-slate-300">Distance to Major Active Thrust Fault:</span>
-                  <span className="font-bold text-slate-200">{simFaultDistance} km</span>
+                  <span className={isLightMode ? 'text-slate-700' : 'text-slate-300'}>Distance to Major Active Thrust Fault:</span>
+                  <span className={`font-bold ${isLightMode ? 'text-slate-900' : 'text-slate-200'}`}>{simFaultDistance} km</span>
                 </div>
                 <input
                   type="range"
@@ -668,16 +684,16 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
             {/* Results (5 cols) */}
             <div className={`lg:col-span-5 p-4 rounded-xl border flex flex-col justify-between space-y-3 ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
               <div>
-                <div className="text-[10px] font-mono uppercase text-slate-500">Live Simulation Output</div>
+                <div className={`text-[10px] font-mono uppercase ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Live Simulation Output</div>
                 <div className="flex items-center justify-between mt-1">
-                  <span className="text-xs font-bold">Predicted Risk Category</span>
+                  <span className={`text-xs font-bold ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>Predicted Risk Category</span>
                   <span
                     className={`px-2.5 py-0.5 rounded text-xs font-mono font-bold ${
                       riskLevel === 'WARNING'
-                        ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40'
+                        ? isLightMode ? 'bg-rose-100 text-rose-800 border border-rose-300' : 'bg-rose-500/20 text-rose-400 border border-rose-500/40'
                         : riskLevel === 'WATCH'
-                        ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
-                        : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
+                        ? isLightMode ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                        : isLightMode ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
                     }`}
                   >
                     {riskLevel} ({riskScore}/100)
@@ -685,20 +701,22 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
                 </div>
               </div>
 
-              <div className="space-y-2 pt-2 border-t border-slate-800 text-xs font-mono">
+              <div className={`space-y-2 pt-2 border-t text-xs font-mono ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Factor of Safety (FoS):</span>
-                  <span className={`font-bold ${physicsFoS.factorOfSafety < 1.0 ? 'text-rose-400' : 'text-emerald-400'}`}>
+                  <span className={isLightMode ? 'text-slate-600' : 'text-slate-400'}>Factor of Safety (FoS):</span>
+                  <span className={`font-bold ${physicsFoS.factorOfSafety < 1.0 ? isLightMode ? 'text-rose-700' : 'text-rose-400' : isLightMode ? 'text-emerald-700' : 'text-emerald-400'}`}>
                     {physicsFoS.factorOfSafety.toFixed(2)} ({physicsFoS.stabilityStatus})
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Pore Water Pressure:</span>
-                  <span className="text-cyan-400 font-bold">{physicsFoS.poreWaterPressureKPa} kPa</span>
+                  <span className={isLightMode ? 'text-slate-600' : 'text-slate-400'}>Pore Water Pressure:</span>
+                  <span className={`font-bold ${isLightMode ? 'text-cyan-700' : 'text-cyan-400'}`}>{physicsFoS.poreWaterPressureKPa} kPa</span>
                 </div>
               </div>
 
-              <div className="p-2.5 rounded bg-slate-900 border border-slate-800 text-[11px] leading-snug text-slate-300">
+              <div className={`p-2.5 rounded border text-[11px] leading-snug ${
+                isLightMode ? 'bg-white border-slate-200 text-slate-800 shadow-xs' : 'bg-slate-900 border-slate-800 text-slate-300'
+              }`}>
                 {riskScore >= currentThresholds.warningMin
                   ? `CRITICAL FAILURE WARNING: Extreme pore-water pressure exceeds shear strength. Mass movement probability > 92%.`
                   : riskScore > currentThresholds.normalMax
@@ -716,35 +734,35 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
           {/* Architecture Overview Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
             <div className={`p-3.5 rounded-xl border ${isLightMode ? 'bg-white border-slate-200 shadow-sm' : 'bg-slate-900 border-slate-800'}`}>
-              <span className="text-[10px] text-slate-400 uppercase">Ensemble Engine</span>
-              <div className="text-sm font-extrabold mt-0.5">{ML_MODEL_SPECS.modelName}</div>
-              <div className="text-[10px] text-slate-500 mt-1">XGBoost v2.1 + RF 500</div>
+              <span className={`text-[10px] uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Ensemble Engine</span>
+              <div className={`text-sm font-extrabold mt-0.5 ${isLightMode ? 'text-slate-900' : 'text-white'}`}>{ML_MODEL_SPECS.modelName}</div>
+              <div className={`text-[10px] mt-1 ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>XGBoost v2.1 + RF 500</div>
             </div>
             <div className={`p-3.5 rounded-xl border ${isLightMode ? 'bg-white border-slate-200 shadow-sm' : 'bg-slate-900 border-slate-800'}`}>
-              <span className="text-[10px] text-slate-400 uppercase">GSI Historical Events</span>
-              <div className="text-sm font-extrabold text-cyan-400 mt-0.5">3,418 Events</div>
-              <div className="text-[10px] text-slate-500 mt-1">8 NER States (2010–2025)</div>
+              <span className={`text-[10px] uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>GSI Historical Events</span>
+              <div className={`text-sm font-extrabold mt-0.5 ${isLightMode ? 'text-cyan-700' : 'text-cyan-400'}`}>3,418 Events</div>
+              <div className={`text-[10px] mt-1 ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>8 NER States (2010–2025)</div>
             </div>
             <div className={`p-3.5 rounded-xl border ${isLightMode ? 'bg-white border-slate-200 shadow-sm' : 'bg-slate-900 border-slate-800'}`}>
-              <span className="text-[10px] text-slate-400 uppercase">ROC-AUC Score</span>
-              <div className="text-sm font-extrabold text-emerald-400 mt-0.5">0.961</div>
-              <div className="text-[10px] text-slate-500 mt-1">Precision 91.2% • Recall 94.8%</div>
+              <span className={`text-[10px] uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>ROC-AUC Score</span>
+              <div className={`text-sm font-extrabold mt-0.5 ${isLightMode ? 'text-emerald-700' : 'text-emerald-400'}`}>0.961</div>
+              <div className={`text-[10px] mt-1 ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>Precision 91.2% • Recall 94.8%</div>
             </div>
             <div className={`p-3.5 rounded-xl border ${isLightMode ? 'bg-white border-slate-200 shadow-sm' : 'bg-slate-900 border-slate-800'}`}>
-              <span className="text-[10px] text-slate-400 uppercase">Inference Latency</span>
-              <div className="text-sm font-extrabold text-amber-400 mt-0.5">18 ms</div>
-              <div className="text-[10px] text-slate-500 mt-1">Edge Device Compatible</div>
+              <span className={`text-[10px] uppercase font-semibold ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Inference Latency</span>
+              <div className={`text-sm font-extrabold mt-0.5 ${isLightMode ? 'text-amber-700' : 'text-amber-400'}`}>18 ms</div>
+              <div className={`text-[10px] mt-1 ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>Edge Device Compatible</div>
             </div>
           </div>
 
           {/* Global Feature Importance */}
           <div className={`p-5 rounded-2xl border space-y-4 shadow-xl ${isLightMode ? 'bg-white border-slate-200' : 'bg-slate-900 border-slate-800'}`}>
-            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+            <div className={`flex items-center justify-between pb-2 border-b ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
               <div>
-                <h3 className="font-bold text-xs uppercase tracking-wide font-mono">
+                <h3 className={`font-bold text-xs uppercase tracking-wide font-mono ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
                   Global Feature Importance Ranking (SHAP TreeExplainer)
                 </h3>
-                <p className="text-[11px] text-slate-500">
+                <p className={`text-[11px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
                   Mean absolute SHAP value impact across 3,418 verified GSI training records
                 </p>
               </div>
@@ -754,10 +772,10 @@ export const ModelIntelligenceView: React.FC<ModelIntelligenceViewProps> = ({
               {ML_MODEL_SPECS.featureImportance.map((f, idx) => (
                 <div key={idx} className="space-y-1">
                   <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="font-semibold text-slate-200">{f.feature}</span>
-                    <span className="text-amber-400 font-bold">{f.importancePercentage}%</span>
+                    <span className={`font-semibold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>{f.feature}</span>
+                    <span className={`font-bold ${isLightMode ? 'text-amber-700' : 'text-amber-400'}`}>{f.importancePercentage}%</span>
                   </div>
-                  <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+                  <div className={`w-full h-2 rounded-full overflow-hidden border ${isLightMode ? 'bg-slate-100 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
                     <div
                       className="h-full bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500 rounded-full"
                       style={{ width: `${f.importancePercentage * 3.5}%` }}

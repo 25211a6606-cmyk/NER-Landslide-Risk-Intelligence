@@ -16,7 +16,10 @@ import {
   AlertOctagon,
   ExternalLink,
   BrainCircuit,
-  Maximize2
+  Maximize2,
+  Radio,
+  Gauge,
+  Droplets
 } from 'lucide-react';
 import { MonitoredLocation } from '../../types/location';
 import { alertService } from '../../services/alertService';
@@ -139,14 +142,14 @@ export const LocationIntelligencePanel: React.FC<LocationIntelligencePanelProps>
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold font-mono text-slate-500 uppercase">CURRENT RISK SCORE</span>
+            <span className={`text-[11px] font-bold font-mono uppercase ${isLightMode ? 'text-slate-700' : 'text-slate-300'}`}>CURRENT RISK SCORE</span>
             <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold font-mono border ${riskBadgeColor}`}>
               {location.prediction.riskLevel} • {location.prediction.riskScore}/100
             </span>
           </div>
 
           {/* Progress Bar */}
-          <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+          <div className={`w-full h-2 rounded-full overflow-hidden ${isLightMode ? 'bg-slate-200' : 'bg-slate-800'}`}>
             <div
               className={`h-full rounded-full transition-all duration-500 ${
                 isWarning ? 'bg-rose-500' : isWatch ? 'bg-amber-500' : 'bg-emerald-500'
@@ -157,20 +160,20 @@ export const LocationIntelligencePanel: React.FC<LocationIntelligencePanelProps>
 
           <div className="grid grid-cols-3 gap-2 pt-1 text-center font-mono">
             <div className={`p-2 rounded border ${isLightMode ? 'bg-white border-slate-200' : 'bg-slate-900 border-slate-800'}`}>
-              <div className="text-[10px] text-slate-500">Susceptibility</div>
-              <div className="text-xs font-bold text-slate-800 mt-0.5">
+              <div className={`text-[10px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Susceptibility</div>
+              <div className={`text-xs font-bold mt-0.5 ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
                 {Math.round(location.prediction.susceptibilityScore * 100)}%
               </div>
             </div>
             <div className={`p-2 rounded border ${isLightMode ? 'bg-white border-slate-200' : 'bg-slate-900 border-slate-800'}`}>
-              <div className="text-[10px] text-slate-500">Trigger Level</div>
-              <div className="text-xs font-bold text-cyan-700 mt-0.5">
+              <div className={`text-[10px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Trigger Level</div>
+              <div className={`text-xs font-bold mt-0.5 ${isLightMode ? 'text-cyan-700' : 'text-cyan-400'}`}>
                 {location.rainfall.triggerLevel}
               </div>
             </div>
             <div className={`p-2 rounded border ${isLightMode ? 'bg-white border-slate-200' : 'bg-slate-900 border-slate-800'}`}>
-              <div className="text-[10px] text-slate-500">Antecedent</div>
-              <div className="text-xs font-bold text-amber-700 mt-0.5">
+              <div className={`text-[10px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Antecedent</div>
+              <div className={`text-xs font-bold mt-0.5 ${isLightMode ? 'text-amber-700' : 'text-amber-400'}`}>
                 {Math.round(location.rainfall.antecedentRainfallIndex)}/100
               </div>
             </div>
@@ -179,81 +182,126 @@ export const LocationIntelligencePanel: React.FC<LocationIntelligencePanelProps>
 
         {/* Section 1: Static Environmental Features */}
         <div>
-          <div className="text-[11px] font-bold font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1.5 mb-2.5">
+          <div className={`text-[11px] font-bold font-mono uppercase tracking-wider flex items-center gap-1.5 mb-2.5 ${
+            isLightMode ? 'text-slate-700' : 'text-slate-300'
+          }`}>
             <Mountain className="w-3.5 h-3.5 text-emerald-600" />
             Static Geotechnical Features
           </div>
 
           <div className="grid grid-cols-2 gap-2">
             <div className={`p-2.5 rounded-lg border ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
-              <div className="text-[10px] text-slate-500">Elevation</div>
-              <div className="font-bold text-slate-800 mt-0.5 font-mono">
+              <div className={`text-[10px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Elevation</div>
+              <div className={`font-bold mt-0.5 font-mono ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
                 {location.environmental.elevation} m
               </div>
             </div>
             <div className={`p-2.5 rounded-lg border ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
-              <div className="text-[10px] text-slate-500">Slope Gradient</div>
-              <div className="font-bold text-slate-800 mt-0.5 font-mono">
+              <div className={`text-[10px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Slope Gradient</div>
+              <div className={`font-bold mt-0.5 font-mono ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
                 {location.environmental.slope}° ({location.environmental.aspect})
               </div>
             </div>
             <div className={`p-2.5 rounded-lg border ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
-              <div className="text-[10px] text-slate-500">Fault Proximity</div>
-              <div className="font-bold text-slate-800 mt-0.5 font-mono">
+              <div className={`text-[10px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Fault Proximity</div>
+              <div className={`font-bold mt-0.5 font-mono ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
                 {location.environmental.faultDistanceKm} km
               </div>
             </div>
             <div className={`p-2.5 rounded-lg border ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
-              <div className="text-[10px] text-slate-500">Land Cover</div>
-              <div className="font-bold text-slate-800 mt-0.5 truncate" title={location.environmental.landCover}>
+              <div className={`text-[10px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Land Cover</div>
+              <div className={`font-bold mt-0.5 truncate ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`} title={location.environmental.landCover}>
                 {location.environmental.landCover}
               </div>
             </div>
           </div>
 
           <div className={`p-2.5 rounded-lg border mt-2 space-y-1 ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
-            <div className="text-[10px] text-slate-500">Lithology & Geology Unit</div>
-            <div className="font-semibold text-slate-800 leading-snug">
+            <div className={`text-[10px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Lithology & Geology Unit</div>
+            <div className={`font-semibold leading-snug ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
               {location.environmental.geology}
             </div>
-            <div className="text-[11px] text-slate-600 mt-1">
-              Soil: <span className="font-medium text-slate-700">{location.environmental.soil}</span>
+            <div className={`text-[11px] mt-1 ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
+              Soil: <span className={`font-medium ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>{location.environmental.soil}</span>
             </div>
           </div>
         </div>
 
         {/* Section 2: Dynamic Rainfall & Antecedent Analysis */}
         <div>
-          <div className="text-[11px] font-bold font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1.5 mb-2.5">
+          <div className={`text-[11px] font-bold font-mono uppercase tracking-wider flex items-center gap-1.5 mb-2.5 ${
+            isLightMode ? 'text-slate-700' : 'text-slate-300'
+          }`}>
             <CloudRain className="w-3.5 h-3.5 text-cyan-600" />
             Dynamic Rainfall & Antecedent Timeline
           </div>
 
           <div className="grid grid-cols-4 gap-1.5 text-center font-mono mb-2.5">
             <div className={`p-2 rounded border ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
-              <div className="text-[9px] text-slate-500">TODAY</div>
-              <div className="text-xs font-bold text-cyan-700 mt-0.5">
+              <div className={`text-[9px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>TODAY</div>
+              <div className={`text-xs font-bold mt-0.5 ${isLightMode ? 'text-cyan-700' : 'text-cyan-400'}`}>
                 {location.rainfall.today}mm
               </div>
             </div>
             <div className={`p-2 rounded border ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
-              <div className="text-[9px] text-slate-500">3-DAY</div>
-              <div className="text-xs font-bold text-slate-700 mt-0.5">
+              <div className={`text-[9px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>3-DAY</div>
+              <div className={`text-xs font-bold mt-0.5 ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>
                 {location.rainfall.last3Days}mm
               </div>
             </div>
             <div className={`p-2 rounded border ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
-              <div className="text-[9px] text-slate-500">7-DAY</div>
-              <div className="text-xs font-bold text-slate-700 mt-0.5">
+              <div className={`text-[9px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>7-DAY</div>
+              <div className={`text-xs font-bold mt-0.5 ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>
                 {location.rainfall.last7Days}mm
               </div>
             </div>
             <div className={`p-2 rounded border ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
-              <div className="text-[9px] text-slate-500">30-DAY</div>
-              <div className="text-xs font-bold text-slate-700 mt-0.5">
+              <div className={`text-[9px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>30-DAY</div>
+              <div className={`text-xs font-bold mt-0.5 ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>
                 {location.rainfall.last30Days}mm
               </div>
             </div>
+          </div>
+
+          {/* Real-time In-Situ Geotechnical Telemetry */}
+          <div className={`p-2.5 rounded-lg border mb-2 font-mono ${
+            isLightMode ? 'bg-cyan-50/70 border-cyan-200/80 text-slate-800' : 'bg-cyan-950/20 border-cyan-800/40 text-cyan-200'
+          }`}>
+            <div className="flex items-center justify-between text-[10px] mb-2">
+              <div className="flex items-center gap-1.5 font-bold">
+                <Radio className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />
+                <span>{location.rainfall.telemetryStationId || `IMD-AWS-${location.id}`}</span>
+              </div>
+              <span className="flex items-center gap-1 text-[9px] text-emerald-600 dark:text-emerald-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                LIVE SENSOR
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-[10px]">
+              <div className={`p-1.5 rounded border ${isLightMode ? 'bg-white/80 border-cyan-200/70' : 'bg-slate-900/60 border-slate-800'}`}>
+                <div className={`flex items-center gap-1 text-[9px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
+                  <Droplets className="w-2.5 h-2.5 text-cyan-500" />
+                  Soil Saturation
+                </div>
+                <div className={`text-xs font-bold mt-0.5 ${isLightMode ? 'text-cyan-800' : 'text-cyan-300'}`}>
+                  {location.rainfall.soilMoisturePct ?? 65.0}%
+                </div>
+              </div>
+              <div className={`p-1.5 rounded border ${isLightMode ? 'bg-white/80 border-cyan-200/70' : 'bg-slate-900/60 border-slate-800'}`}>
+                <div className={`flex items-center gap-1 text-[9px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
+                  <Gauge className="w-2.5 h-2.5 text-indigo-500" />
+                  Pore Pressure
+                </div>
+                <div className={`text-xs font-bold mt-0.5 ${isLightMode ? 'text-indigo-800' : 'text-indigo-300'}`}>
+                  {location.rainfall.poreWaterPressureKPa ?? 38.0} kPa
+                </div>
+              </div>
+            </div>
+            {location.rainfall.telemetrySource && (
+              <div className={`text-[9px] mt-1.5 truncate ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>
+                Source: {location.rainfall.telemetrySource}
+              </div>
+            )}
           </div>
 
           {/* Mini 7-Day Rainfall Trend Chart */}
@@ -291,25 +339,27 @@ export const LocationIntelligencePanel: React.FC<LocationIntelligencePanelProps>
 
         {/* Section 3: Model Explainability (SHAP Contributions) */}
         <div>
-          <div className="text-[11px] font-bold font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1.5 mb-2.5">
+          <div className={`text-[11px] font-bold font-mono uppercase tracking-wider flex items-center gap-1.5 mb-2.5 ${
+            isLightMode ? 'text-slate-700' : 'text-slate-300'
+          }`}>
             <BrainCircuit className="w-3.5 h-3.5 text-amber-600" />
             Model Explainability & Primary Factors
           </div>
 
           <div className={`p-3 rounded-lg border space-y-2.5 ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
-            <div className="text-[11px] text-slate-600 leading-relaxed">
+            <div className={`text-[11px] leading-relaxed ${isLightMode ? 'text-slate-700' : 'text-slate-300'}`}>
               {location.prediction.explanationPoints[0]}
             </div>
 
             {/* SHAP Factor Bars */}
-            <div className="space-y-2 pt-1 border-t border-slate-200">
+            <div className={`space-y-2 pt-1 border-t ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
               {location.prediction.shapContributions.map((shap, idx) => (
                 <div key={idx} className="space-y-0.5">
                   <div className="flex justify-between text-[10px] font-mono">
-                    <span className="text-slate-600 truncate max-w-[200px]">{shap.feature}</span>
-                    <span className="text-amber-800 font-bold">{shap.percentage}%</span>
+                    <span className={`truncate max-w-[200px] ${isLightMode ? 'text-slate-700' : 'text-slate-300'}`}>{shap.feature}</span>
+                    <span className={`font-bold ${isLightMode ? 'text-amber-800' : 'text-amber-400'}`}>{shap.percentage}%</span>
                   </div>
-                  <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                  <div className={`w-full h-1.5 rounded-full overflow-hidden ${isLightMode ? 'bg-slate-200' : 'bg-slate-800'}`}>
                     <div
                       className="h-full bg-amber-500 rounded-full"
                       style={{ width: `${shap.percentage}%` }}
@@ -323,14 +373,16 @@ export const LocationIntelligencePanel: React.FC<LocationIntelligencePanelProps>
 
         {/* Section 4: Infrastructure & Population Exposure */}
         <div>
-          <div className="text-[11px] font-bold font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1.5 mb-2.5">
+          <div className={`text-[11px] font-bold font-mono uppercase tracking-wider flex items-center gap-1.5 mb-2.5 ${
+            isLightMode ? 'text-slate-700' : 'text-slate-300'
+          }`}>
             <ShieldAlert className="w-3.5 h-3.5 text-rose-600" />
             Infrastructure & Settlement Exposure
           </div>
 
           <div className={`p-3 rounded-lg border space-y-2.5 ${isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-slate-950 border-slate-800'}`}>
             <div className="space-y-1.5">
-              <div className="text-[10px] text-slate-500 font-mono">NEARBY ROAD CORRIDORS</div>
+              <div className={`text-[10px] font-mono ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>NEARBY ROAD CORRIDORS</div>
               {location.exposure.roadSegments.map((road, idx) => (
                 <div
                   key={idx}
@@ -339,16 +391,16 @@ export const LocationIntelligencePanel: React.FC<LocationIntelligencePanelProps>
                   }`}
                 >
                   <div>
-                    <div className="font-bold text-slate-800 text-xs">{road.name}</div>
-                    <div className="text-[10px] text-slate-500">
+                    <div className={`font-bold text-xs ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>{road.name}</div>
+                    <div className={`text-[10px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>
                       {road.type} • Distance: {road.distanceMeters}m
                     </div>
                   </div>
                   <span
                     className={`px-1.5 py-0.5 rounded text-[9px] font-mono font-bold ${
                       road.trafficVulnerability === 'HIGH'
-                        ? 'bg-rose-100 text-rose-800 border border-rose-300'
-                        : 'bg-slate-100 text-slate-600'
+                        ? isLightMode ? 'bg-rose-100 text-rose-800 border border-rose-300' : 'bg-rose-950/60 text-rose-300 border border-rose-500/40'
+                        : isLightMode ? 'bg-slate-100 text-slate-700 border border-slate-300' : 'bg-slate-800 text-slate-300 border border-slate-700'
                     }`}
                   >
                     {road.trafficVulnerability} VULN
@@ -357,22 +409,22 @@ export const LocationIntelligencePanel: React.FC<LocationIntelligencePanelProps>
               ))}
             </div>
 
-            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-200 text-center font-mono">
-              <div className={`p-1.5 rounded ${isLightMode ? 'bg-white border border-slate-200' : 'bg-slate-900'}`}>
-                <div className="text-[9px] text-slate-500">Pop. Exposed</div>
-                <div className="font-bold text-slate-800 mt-0.5">
+            <div className={`grid grid-cols-3 gap-2 pt-2 border-t text-center font-mono ${isLightMode ? 'border-slate-200' : 'border-slate-800'}`}>
+              <div className={`p-1.5 rounded border ${isLightMode ? 'bg-white border-slate-200' : 'bg-slate-900 border-slate-800'}`}>
+                <div className={`text-[9px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Pop. Exposed</div>
+                <div className={`font-bold mt-0.5 ${isLightMode ? 'text-slate-900' : 'text-slate-100'}`}>
                   {location.exposure.estimatedVulnerablePopulation}
                 </div>
               </div>
-              <div className={`p-1.5 rounded ${isLightMode ? 'bg-white border border-slate-200' : 'bg-slate-900'}`}>
-                <div className="text-[9px] text-slate-500">Hospitals</div>
-                <div className="font-bold text-cyan-700 mt-0.5">
+              <div className={`p-1.5 rounded border ${isLightMode ? 'bg-white border-slate-200' : 'bg-slate-900 border-slate-800'}`}>
+                <div className={`text-[9px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Hospitals</div>
+                <div className={`font-bold mt-0.5 ${isLightMode ? 'text-cyan-700' : 'text-cyan-400'}`}>
                   {location.exposure.hospitals}
                 </div>
               </div>
-              <div className={`p-1.5 rounded ${isLightMode ? 'bg-white border border-slate-200' : 'bg-slate-900'}`}>
-                <div className="text-[9px] text-slate-500">Schools</div>
-                <div className="font-bold text-amber-800 mt-0.5">
+              <div className={`p-1.5 rounded border ${isLightMode ? 'bg-white border-slate-200' : 'bg-slate-900 border-slate-800'}`}>
+                <div className={`text-[9px] ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>Schools</div>
+                <div className={`font-bold mt-0.5 ${isLightMode ? 'text-amber-800' : 'text-amber-400'}`}>
                   {location.exposure.schools}
                 </div>
               </div>

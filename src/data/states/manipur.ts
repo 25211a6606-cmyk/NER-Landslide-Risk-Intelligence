@@ -556,5 +556,334 @@ export const MANIPUR_LOCATIONS: MonitoredLocation[] = [
     },
     lastUpdated: '2026-09-08T10:15:00+05:30',
     historicalEventsCount: 14
+  },
+  {
+    id: 'MAN_010',
+    name: 'Ukhrul - Shirui Kashung Mountain Crest',
+    state: 'Manipur',
+    district: 'Ukhrul',
+    latitude: 25.1240,
+    longitude: 94.4320,
+    environmental: {
+      elevation: 2180,
+      slope: 42.6,
+      aspect: 'East',
+      geology: 'Indo-Myanmar Ophiolite Complex Peridotite & Serpentine Melange',
+      soil: 'Gravelly Clay Loam with Highly Weathered Serpentine Talus',
+      landCover: 'Montane Subalpine Grasslands & Dwarf Rhododendron',
+      drainage: 'Thoubal & Chindwin River Watershed Divide',
+      faultDistanceKm: 1.2
+    },
+    rainfall: {
+      today: 74.0,
+      last3Days: 168.0,
+      last7Days: 310.0,
+      last15Days: 540.0,
+      last30Days: 880.0,
+      max1Day: 88.0,
+      max3Day: 185.0,
+      rainyDays: 20,
+      antecedentRainfallIndex: 76.5,
+      triggerLevel: 'HIGH',
+      telemetryStationId: 'IMD-AWS-UKH-10',
+      telemetrySource: 'IMD Automated Weather Station + GSI Tiltmeter',
+      soilMoisturePct: 81.4,
+      poreWaterPressureKPa: 54.0
+    },
+    prediction: {
+      susceptibilityScore: 0.82,
+      rainfallTriggerScore: 0.78,
+      riskScore: 81,
+      riskLevel: 'WARNING',
+      confidence: 0.93,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Serpentinite Fault Gouge Weakness', value: 'Low Shear Strength', contribution: 0.35, percentage: 37 },
+        { feature: 'High Orographic Rain Trigger (168mm 3D)', value: 'High Infiltration', contribution: 0.30, percentage: 32 },
+        { feature: 'Precipitous Crest Slopes (42.6°)', value: 'Steep Escarpment', contribution: 0.23, percentage: 24 },
+        { feature: 'Low Valley Habitation Exposure', value: 'Remote High Crest', contribution: -0.07, percentage: 7 }
+      ],
+      explanationPoints: [
+        'Warning triggered for Ukhrul-Jessami highway sector near Shirui ridge due to active rotational mudflows.',
+        'High pore water pressure (54.0 kPa) detected in clay gouge zones.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Ukhrul - Jessami Highway (NH-202)', type: 'National Highway', distanceMeters: 20, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Shirui Village', population: 2100, distanceMeters: 450 }
+      ],
+      hospitals: 1,
+      schools: 1,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 2100
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 8
+  },
+  {
+    id: 'MAN_011',
+    name: 'Maram - Senapati NH-02 Strategic Lifeline Axis',
+    state: 'Manipur',
+    district: 'Senapati',
+    latitude: 25.4350,
+    longitude: 94.0210,
+    environmental: {
+      elevation: 1420,
+      slope: 38.5,
+      aspect: 'North-East',
+      geology: 'Disang Group Laminated Friable Shale with Siltstone Ribs',
+      soil: 'Expansive Silty Clay prone to Rapid Liquefaction',
+      landCover: 'Terraced Rice Fields & Road Cut Terraces',
+      drainage: 'Barak River Upper Valley Rapids',
+      faultDistanceKm: 1.8
+    },
+    rainfall: {
+      today: 86.0,
+      last3Days: 192.0,
+      last7Days: 345.0,
+      last15Days: 590.0,
+      last30Days: 930.0,
+      max1Day: 98.0,
+      max3Day: 212.0,
+      rainyDays: 21,
+      antecedentRainfallIndex: 83.2,
+      triggerLevel: 'CRITICAL',
+      telemetryStationId: 'IMD-AWS-MRM-11',
+      telemetrySource: 'IMD Automated Weather Station + BRO Inclinometer',
+      soilMoisturePct: 85.6,
+      poreWaterPressureKPa: 63.8
+    },
+    prediction: {
+      susceptibilityScore: 0.88,
+      rainfallTriggerScore: 0.86,
+      riskScore: 87,
+      riskLevel: 'WARNING',
+      confidence: 0.95,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'NH-02 Highway Toe Undercutting & Vibrations', value: 'High Heavy Freight Loading', contribution: 0.36, percentage: 38 },
+        { feature: 'Extreme Continuous Rain (192mm 3D)', value: 'Extreme Soil Saturation', contribution: 0.31, percentage: 33 },
+        { feature: 'Disang Friable Shale Slaking', value: 'Rapid Shear Degradation', contribution: 0.22, percentage: 23 },
+        { feature: 'Agricultural Terracing Irrigation Runoff', value: 'Surcharge Influx', contribution: 0.06, percentage: 6 }
+      ],
+      explanationPoints: [
+        'CRITICAL WARNING: Imminent multi-point highway collapse along NH-02 between Maram and Mao gate.',
+        'High pore pressure (63.8 kPa) threatens total severance of Manipur state lifeline supply route.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'NH-02 (Kohima - Imphal Manipur Lifeline Highway)', type: 'National Highway', distanceMeters: 10, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Maram Bazar Hub', population: 3600, distanceMeters: 280 }
+      ],
+      hospitals: 1,
+      schools: 2,
+      criticalBridges: 2,
+      estimatedVulnerablePopulation: 3600
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 15
+  },
+  {
+    id: 'MAN_012',
+    name: 'Pallel - Chandel Hill Escarpment Cutting',
+    state: 'Manipur',
+    district: 'Chandel',
+    latitude: 24.5120,
+    longitude: 94.0150,
+    environmental: {
+      elevation: 580,
+      slope: 35.0,
+      aspect: 'South',
+      geology: 'Tertiary Sandstone & Altered Basalt Outliers',
+      soil: 'Sandy Clay Loam with Weathered Ferruginous Regolith',
+      landCover: 'Secondary Bamboo Jungle & Jhum Fields',
+      drainage: 'Maha River Perennial Stream',
+      faultDistanceKm: 2.5
+    },
+    rainfall: {
+      today: 56.0,
+      last3Days: 124.0,
+      last7Days: 228.0,
+      last15Days: 410.0,
+      last30Days: 690.0,
+      max1Day: 68.0,
+      max3Day: 140.0,
+      rainyDays: 17,
+      antecedentRainfallIndex: 61.0,
+      triggerLevel: 'MODERATE',
+      telemetryStationId: 'IMD-AWS-PLL-12',
+      telemetrySource: 'IMD Automated Weather Station',
+      soilMoisturePct: 67.5,
+      poreWaterPressureKPa: 37.0
+    },
+    prediction: {
+      susceptibilityScore: 0.63,
+      rainfallTriggerScore: 0.59,
+      riskScore: 62,
+      riskLevel: 'WATCH',
+      confidence: 0.90,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'De-vegetation on Jhum Slopes', value: 'High Runoff Potential', contribution: 0.31, percentage: 35 },
+        { feature: 'Cumulative Precipitation (124mm 3D)', value: 'Moderate Influx', contribution: 0.27, percentage: 30 },
+        { feature: 'Slope Incline (35.0°)', value: 'Moderate-Steep Escarpment', contribution: 0.24, percentage: 27 },
+        { feature: 'Bamboo Clump Anchoring', value: 'Surface Root Web', contribution: -0.07, percentage: 8 }
+      ],
+      explanationPoints: [
+        'Watch advisory on Pallel-Chandel district road due to minor debris slumps across hill cuttings.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Pallel - Chandel District Highway', type: 'District Road', distanceMeters: 30, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Pallel Outskirts & Checkpost', population: 2800, distanceMeters: 520 }
+      ],
+      hospitals: 1,
+      schools: 1,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 2800
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 5
+  },
+  {
+    id: 'MAN_013',
+    name: 'Kangpokpi - Motbung NH-02 River Corridor',
+    state: 'Manipur',
+    district: 'Kangpokpi',
+    latitude: 24.9850,
+    longitude: 93.9210,
+    environmental: {
+      elevation: 920,
+      slope: 31.8,
+      aspect: 'South-West',
+      geology: 'Barail Formation Interbedded Sandstone & Claystone',
+      soil: 'Lateritic Red Silt over Weathered Bedrock',
+      landCover: 'Mixed Pine-Oak Forest & Urban Encroachment',
+      drainage: 'Imphal River Tributary Streams',
+      faultDistanceKm: 3.2
+    },
+    rainfall: {
+      today: 48.0,
+      last3Days: 108.0,
+      last7Days: 198.0,
+      last15Days: 360.0,
+      last30Days: 620.0,
+      max1Day: 60.0,
+      max3Day: 125.0,
+      rainyDays: 15,
+      antecedentRainfallIndex: 53.0,
+      triggerLevel: 'MODERATE',
+      telemetryStationId: 'IMD-AWS-KGP-13',
+      telemetrySource: 'IMD Automated Weather Station',
+      soilMoisturePct: 60.2,
+      poreWaterPressureKPa: 32.8
+    },
+    prediction: {
+      susceptibilityScore: 0.54,
+      rainfallTriggerScore: 0.50,
+      riskScore: 52,
+      riskLevel: 'WATCH',
+      confidence: 0.89,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Claystone Bedding Weathering Planes', value: 'Moderate Weakness', contribution: 0.29, percentage: 34 },
+        { feature: 'Rainfall Infiltration (108mm 3D)', value: 'Active Seepage', contribution: 0.26, percentage: 30 },
+        { feature: 'Moderate Slopes (31.8°)', value: 'Moderate Incline', contribution: 0.23, percentage: 27 },
+        { feature: 'Riparian Forest Vegetative Buffer', value: 'Partial Stabilization', contribution: -0.08, percentage: 9 }
+      ],
+      explanationPoints: [
+        'Watch advisory for NH-02 transit corridor between Kangpokpi and Motbung with monitored shoulder creep.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'NH-02 (Kangpokpi Urban Corridor)', type: 'National Highway', distanceMeters: 25, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Motbung Village Sector', population: 3100, distanceMeters: 380 }
+      ],
+      hospitals: 1,
+      schools: 2,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 3100
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 6
+  },
+  {
+    id: 'MAN_014',
+    name: 'Tamenglong - Khongsang Rail Link Corridor',
+    state: 'Manipur',
+    district: 'Tamenglong',
+    latitude: 24.9120,
+    longitude: 93.5350,
+    environmental: {
+      elevation: 840,
+      slope: 40.5,
+      aspect: 'West',
+      geology: 'Disang Group Mudstone & Fractured Flysch Sandstone',
+      soil: 'High Plasticity Silty Clay with Slickensides',
+      landCover: 'Dense Bamboo Brakes & Rail Tunnel Approaches',
+      drainage: 'Irang River Deep Chasm',
+      faultDistanceKm: 1.6
+    },
+    rainfall: {
+      today: 78.0,
+      last3Days: 175.0,
+      last7Days: 320.0,
+      last15Days: 560.0,
+      last30Days: 900.0,
+      max1Day: 92.0,
+      max3Day: 198.0,
+      rainyDays: 20,
+      antecedentRainfallIndex: 79.0,
+      triggerLevel: 'HIGH',
+      telemetryStationId: 'IMD-AWS-TML-14',
+      telemetrySource: 'IMD Automated Weather Station + Northeast Frontier Railway Borehole Sensor',
+      soilMoisturePct: 83.0,
+      poreWaterPressureKPa: 57.2
+    },
+    prediction: {
+      susceptibilityScore: 0.84,
+      rainfallTriggerScore: 0.81,
+      riskScore: 83,
+      riskLevel: 'WARNING',
+      confidence: 0.94,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Deep Flysch Mudstone Slaking & Tunnel Cut', value: 'High Structural Distress', contribution: 0.35, percentage: 37 },
+        { feature: 'Heavy Monsoon Rain Trigger (175mm 3D)', value: 'Extreme Infiltration', contribution: 0.31, percentage: 33 },
+        { feature: 'Steep Canyon Slope (40.5°)', value: 'High Potential Energy', contribution: 0.22, percentage: 23 },
+        { feature: 'Railway Construction Blasting Shock', value: 'Disturbed Regolith', contribution: 0.07, percentage: 7 }
+      ],
+      explanationPoints: [
+        'WARNING: Critical slope instability on Khongsang-Tupul new railway link following persistent heavy downpours.',
+        'Pore pressure at 57.2 kPa creates imminent rockfall hazard over rail portal approach.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Jiribam - Imphal New Broad Gauge Railway', type: 'Railway Track', distanceMeters: 10, trafficVulnerability: 'HIGH' },
+        { name: 'Tamenglong - Khongsang Road', type: 'District Road', distanceMeters: 25, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Khongsang Rail Transit Enclave', population: 2200, distanceMeters: 320 }
+      ],
+      hospitals: 0,
+      schools: 1,
+      criticalBridges: 2,
+      estimatedVulnerablePopulation: 2200
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 11
   }
 ];

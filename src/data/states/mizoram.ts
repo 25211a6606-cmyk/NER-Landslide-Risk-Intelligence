@@ -556,5 +556,332 @@ export const MIZORAM_LOCATIONS: MonitoredLocation[] = [
     },
     lastUpdated: '2026-09-08T10:15:00+05:30',
     historicalEventsCount: 8
+  },
+  {
+    id: 'MIZ_010',
+    name: 'Champhai - Zokhawthar Border Trade Highway',
+    state: 'Mizoram',
+    district: 'Champhai',
+    latitude: 23.4720,
+    longitude: 93.3280,
+    environmental: {
+      elevation: 1380,
+      slope: 39.4,
+      aspect: 'East',
+      geology: 'Surma Group Massive Sandstone with Silty Shale Intercalations',
+      soil: 'Porous Sandy Silt over Tilted Bedding Dip Planes',
+      landCover: 'Vineyards, Terraced Rice Fields & Road Cut Terraces',
+      drainage: 'Tiau River International Border Chasm',
+      faultDistanceKm: 1.5
+    },
+    rainfall: {
+      today: 76.0,
+      last3Days: 172.0,
+      last7Days: 315.0,
+      last15Days: 540.0,
+      last30Days: 890.0,
+      max1Day: 90.0,
+      max3Day: 188.0,
+      rainyDays: 20,
+      antecedentRainfallIndex: 77.0,
+      triggerLevel: 'HIGH',
+      telemetryStationId: 'IMD-AWS-CMP-10',
+      telemetrySource: 'IMD Automated Weather Station + GSI Dipmeter',
+      soilMoisturePct: 82.3,
+      poreWaterPressureKPa: 55.4
+    },
+    prediction: {
+      susceptibilityScore: 0.81,
+      rainfallTriggerScore: 0.79,
+      riskScore: 80,
+      riskLevel: 'WARNING',
+      confidence: 0.93,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Daylighting Dip Slope Strata toward Tiau Gorge', value: 'High Kinematic Slip', contribution: 0.36, percentage: 38 },
+        { feature: 'High 3-Day Rain Influx (172mm)', value: 'Severe Infiltration', contribution: 0.30, percentage: 32 },
+        { feature: 'Slope Incline (39.4°)', value: 'Steep Escarpment', contribution: 0.22, percentage: 23 },
+        { feature: 'International Border Trade Freight', value: 'Dynamic Traffic Shock', contribution: 0.07, percentage: 7 }
+      ],
+      explanationPoints: [
+        'Warning active for Champhai-Zokhawthar border trade corridor due to daylighting planar dip failure.',
+        'Pore pressure (55.4 kPa) indicates saturation of basal siltstone slip surface.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Champhai - Zokhawthar Border Highway', type: 'State Highway', distanceMeters: 15, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Zokhawthar Border Transit Point', population: 3100, distanceMeters: 380 }
+      ],
+      hospitals: 1,
+      schools: 1,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 3100
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 9
+  },
+  {
+    id: 'MIZ_011',
+    name: 'Serchhip - Mat River Valley Escarpment',
+    state: 'Mizoram',
+    district: 'Serchhip',
+    latitude: 23.3420,
+    longitude: 92.8520,
+    environmental: {
+      elevation: 890,
+      slope: 37.0,
+      aspect: 'West',
+      geology: 'Tipam Sandstone & Laminated Mudstone Horizons',
+      soil: 'Friable Sandy Clay prone to Deep Gullying',
+      landCover: 'Horticulture Terraces & Bamboo Groves',
+      drainage: 'Mat River Torrential Valley System',
+      faultDistanceKm: 2.6
+    },
+    rainfall: {
+      today: 58.0,
+      last3Days: 128.0,
+      last7Days: 238.0,
+      last15Days: 420.0,
+      last30Days: 710.0,
+      max1Day: 70.0,
+      max3Day: 142.0,
+      rainyDays: 17,
+      antecedentRainfallIndex: 63.5,
+      triggerLevel: 'MODERATE',
+      telemetryStationId: 'IMD-AWS-SCP-11',
+      telemetrySource: 'IMD Automated Weather Station',
+      soilMoisturePct: 69.8,
+      poreWaterPressureKPa: 39.5
+    },
+    prediction: {
+      susceptibilityScore: 0.67,
+      rainfallTriggerScore: 0.63,
+      riskScore: 65,
+      riskLevel: 'WATCH',
+      confidence: 0.90,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Mat River Valley Toe Undercutting', value: 'High Basal Scour', contribution: 0.32, percentage: 36 },
+        { feature: 'Rainfall Infiltration (128mm 3D)', value: 'Moderate-High Influx', contribution: 0.28, percentage: 31 },
+        { feature: 'Slope Incline (37.0°)', value: 'Steep Valley Wall', contribution: 0.24, percentage: 27 },
+        { feature: 'Dense Bamboo Root Mat', value: 'Shallow Soil Binding', contribution: -0.06, percentage: 6 }
+      ],
+      explanationPoints: [
+        'Watch advisory on Serchhip-Thenzawl highway link due to rotational slumping along Mat river valley wall.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Serchhip - Thenzawl Highway', type: 'State Highway', distanceMeters: 30, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Serchhip Valley Hamlet', population: 2400, distanceMeters: 510 }
+      ],
+      hospitals: 1,
+      schools: 1,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 2400
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 6
+  },
+  {
+    id: 'MIZ_012',
+    name: 'Kolasib - Vairengte NH-306 Assam Border Lifeline',
+    state: 'Mizoram',
+    district: 'Kolasib',
+    latitude: 24.3120,
+    longitude: 92.7650,
+    environmental: {
+      elevation: 410,
+      slope: 41.5,
+      aspect: 'North',
+      geology: 'Bhuban Formation Rhythmic Shale-Sandstone Flysch',
+      soil: 'High Plasticity Weathered Mudstone Colluvium',
+      landCover: 'Betel Nut Plantations & Heavy Cut Benches',
+      drainage: 'Dhaleswari (Tlawng) River Lowland Canyon',
+      faultDistanceKm: 1.1
+    },
+    rainfall: {
+      today: 92.0,
+      last3Days: 208.0,
+      last7Days: 375.0,
+      last15Days: 620.0,
+      last30Days: 980.0,
+      max1Day: 106.0,
+      max3Day: 230.0,
+      rainyDays: 22,
+      antecedentRainfallIndex: 87.0,
+      triggerLevel: 'CRITICAL',
+      telemetryStationId: 'IMD-AWS-VRG-12',
+      telemetrySource: 'IMD Automated Weather Station + Mizoram PWD Tiltmeter',
+      soilMoisturePct: 87.4,
+      poreWaterPressureKPa: 65.2
+    },
+    prediction: {
+      susceptibilityScore: 0.91,
+      rainfallTriggerScore: 0.92,
+      riskScore: 91,
+      riskLevel: 'WARNING',
+      confidence: 0.96,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Sole Lifeline Highway NH-306 Vulnerability', value: 'Single Economic Transit Axis', contribution: 0.38, percentage: 40 },
+        { feature: 'Extreme Rainfall Precipitation (208mm 3D)', value: 'Extreme Soil Liquefaction', contribution: 0.32, percentage: 34 },
+        { feature: 'Steep Road Cut Overhang (41.5°)', value: 'Severe Excavation Incline', contribution: 0.21, percentage: 22 },
+        { feature: 'Intensive Heavy Fuel Tanker Transits', value: 'Repetitive Dynamic Stress', contribution: 0.08, percentage: 8 }
+      ],
+      explanationPoints: [
+        'CRITICAL RED ALERT: Imminent mudslide and road severance along NH-306 between Vairengte and Bilkhawthlir.',
+        'Pore pressure at 65.2 kPa; total road blockage anticipated within 6-12 hours.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'NH-306 (Silchar - Aizawl Mizoram Primary Lifeline)', type: 'National Highway', distanceMeters: 5, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Vairengte Gateway Town', population: 6400, distanceMeters: 250 }
+      ],
+      hospitals: 1,
+      schools: 3,
+      criticalBridges: 2,
+      estimatedVulnerablePopulation: 6400
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 18
+  },
+  {
+    id: 'MIZ_013',
+    name: 'Lawngtlai - Kaladan Multi-Modal Corridor',
+    state: 'Mizoram',
+    district: 'Lawngtlai',
+    latitude: 22.5280,
+    longitude: 92.8950,
+    environmental: {
+      elevation: 760,
+      slope: 36.2,
+      aspect: 'South-East',
+      geology: 'Surma Series Soft Clayey Siltstone & Blue Shale Beds',
+      soil: 'Lateritic Clay over Plastic Weathered Shales',
+      landCover: 'Subtropical Wet Hill Forest & Major Highway Earthworks',
+      drainage: 'Chhimtuipui (Kaladan) River Drainage Basin',
+      faultDistanceKm: 2.1
+    },
+    rainfall: {
+      today: 65.0,
+      last3Days: 145.0,
+      last7Days: 265.0,
+      last15Days: 470.0,
+      last30Days: 780.0,
+      max1Day: 78.0,
+      max3Day: 160.0,
+      rainyDays: 18,
+      antecedentRainfallIndex: 69.0,
+      triggerLevel: 'HIGH',
+      telemetryStationId: 'IMD-AWS-LTL-13',
+      telemetrySource: 'IMD Automated Weather Station',
+      soilMoisturePct: 75.8,
+      poreWaterPressureKPa: 47.6
+    },
+    prediction: {
+      susceptibilityScore: 0.75,
+      rainfallTriggerScore: 0.72,
+      riskScore: 74,
+      riskLevel: 'WARNING',
+      confidence: 0.92,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Kaladan Road Widening Cut Slope Instability', value: 'High Toe Excavation', contribution: 0.34, percentage: 36 },
+        { feature: 'Heavy Monsoon Precipitation (145mm 3D)', value: 'High Infiltration', contribution: 0.29, percentage: 31 },
+        { feature: 'Weak Surma Blue Shale Horizon', value: 'Low Friction Angle', contribution: 0.22, percentage: 24 },
+        { feature: 'Dense Subtropical Bamboo Mat', value: 'Surface Restraint', contribution: -0.06, percentage: 7 }
+      ],
+      explanationPoints: [
+        'Warning triggered on Kaladan Multi-Modal road link toward Zorinpui Myanmar border due to active cut slope slump.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Kaladan Multi-Modal Highway (NH-502A)', type: 'National Highway', distanceMeters: 20, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Lawngtlai Sub-town Sector', population: 3200, distanceMeters: 450 }
+      ],
+      hospitals: 1,
+      schools: 1,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 3200
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 7
+  },
+  {
+    id: 'MIZ_014',
+    name: 'Siaha - Chhimtuipui River Basin',
+    state: 'Mizoram',
+    district: 'Siaha',
+    latitude: 22.4850,
+    longitude: 92.9750,
+    environmental: {
+      elevation: 920,
+      slope: 40.0,
+      aspect: 'South',
+      geology: 'Lower Bhuban Calcareous Sandstone & Friable Black Shale',
+      soil: 'Gravelly Clay Loam with High Porosity',
+      landCover: 'Tropical Semi-Evergreen Forest & Jhum Regrowth',
+      drainage: 'Chhimtuipui Deep Gorge',
+      faultDistanceKm: 1.9
+    },
+    rainfall: {
+      today: 71.0,
+      last3Days: 158.0,
+      last7Days: 290.0,
+      last15Days: 510.0,
+      last30Days: 840.0,
+      max1Day: 84.0,
+      max3Day: 175.0,
+      rainyDays: 19,
+      antecedentRainfallIndex: 74.5,
+      triggerLevel: 'HIGH',
+      telemetryStationId: 'IMD-AWS-SIH-14',
+      telemetrySource: 'IMD Automated Weather Station',
+      soilMoisturePct: 78.5,
+      poreWaterPressureKPa: 51.0
+    },
+    prediction: {
+      susceptibilityScore: 0.79,
+      rainfallTriggerScore: 0.76,
+      riskScore: 78,
+      riskLevel: 'WARNING',
+      confidence: 0.93,
+      modelType: 'XGBoost v2.4 + GSI Inventory Ensemble',
+      shapContributions: [
+        { feature: 'Chhimtuipui River Chasm Toe Erosion', value: 'High Hydraulic Action', contribution: 0.35, percentage: 37 },
+        { feature: 'Heavy Infiltration (158mm 3D)', value: 'High Saturation', contribution: 0.29, percentage: 31 },
+        { feature: 'Slope Gradient (40.0°)', value: 'Steep Escarpment', contribution: 0.23, percentage: 24 },
+        { feature: 'Semi-Evergreen Forest Canopy', value: 'Partial Interception', contribution: -0.06, percentage: 7 }
+      ],
+      explanationPoints: [
+        'Warning active for Siaha-Tipa road corridor due to continuous slope wash and debris chutes.'
+      ]
+    },
+    exposure: {
+      roadSegments: [
+        { name: 'Siaha - Tipa Strategic Road', type: 'District Road', distanceMeters: 25, trafficVulnerability: 'HIGH' }
+      ],
+      settlements: [
+        { name: 'Siaha Administrative HQ', population: 3500, distanceMeters: 400 }
+      ],
+      hospitals: 1,
+      schools: 2,
+      criticalBridges: 1,
+      estimatedVulnerablePopulation: 3500
+    },
+    lastUpdated: '2026-09-08T10:15:00+05:30',
+    historicalEventsCount: 8
   }
 ];
